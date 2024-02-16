@@ -1,8 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const Box = styled.div`
+  font-family: Montserrat;
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-weight: normal;
+  color:  ${({ theme }) => theme.palette.textSecondary};;
+`;
 
 export const HomePage = () => {
-  const [jobs, setJobs] = useState<string>('');
+  const [jobs, setJobs] = useState<string>("");
   function getJobs() {
     axios
       .get("/api/jobs")
@@ -17,5 +25,5 @@ export const HomePage = () => {
     getJobs();
   }, []);
 
-  return <div>{"This is HomePage:".concat(jobs)}</div>;
+  return <Box>{"This is HomePage:".concat(jobs)}</Box>;
 };
