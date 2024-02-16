@@ -1,9 +1,16 @@
-import { it, expect } from "vitest";
+import { it, expect, vitest } from "vitest";
 import { render } from "@testing-library/react";
 import { HomePage } from "./HomePage";
+import axios from "axios";
 
-it("renders the heading with the correct class", () => {
-  const { getByText } = render(<HomePage />);
-  const headingElement = getByText("This is HomePage");
-  expect(headingElement).toBeInTheDocument();
+it("should handle empty response from the API call", async () => {
+  vitest
+    .spyOn(axios, "get")
+    .mockResolvedValueOnce({ data: [{ job: "Sr. software Engineer" }] });
+
+  const { findByText } = render(<HomePage />);
+  const dataElement = await findByText(
+    `This is HomePage:Sr. software Engineer`
+  );
+  expect(dataElement).toBeInTheDocument();
 });
