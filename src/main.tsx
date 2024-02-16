@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { TopNavBar } from "./components/TopNavBar";
 import "./index.css";
 import { router } from "./routes";
-import { TopNavBar } from "./components/TopNavBar";
 import theme from "./theme";
-import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "./theme/GlobalStyles";
 
 const App = () => {
   // Todo create custom hook to provide theme details.
   const [currentTheme, _] = useState<"dark" | "light">("light");
 
   return (
-    <ThemeProvider theme={theme[currentTheme]}>
-      <React.StrictMode>
+    <React.StrictMode>
+      <GlobalStyle/>
+      <ThemeProvider theme={theme[currentTheme]}>
         <TopNavBar />
         <RouterProvider router={router} />
-      </React.StrictMode>
-    </ThemeProvider>
+      </ThemeProvider>
+    </React.StrictMode>
   );
 };
 

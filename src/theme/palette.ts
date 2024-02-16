@@ -20,7 +20,7 @@ export const darktheme = {
     warning: "#ed6c02",
     info: '#0288d1',
     // Action
-    active: "#2d262a",
+    active: "#6d9bff",
     hover: '#6d9bff',
     selection: 'grey',
     selected: '',
@@ -51,7 +51,7 @@ export const lightTheme = {
     warning: "#ed6c02",
     info: '#0288d1',
     // Action
-    active: "#2d262a",
+    active: "#6d9bff",
     hover: '#6d9bff',
     selection: 'grey',
     selected: '',

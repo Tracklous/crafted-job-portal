@@ -8,6 +8,14 @@ const defaultTheme = {
         lg: "1.125rem",
         xl: "1.375rem"
     },
+    spacing: {
+        xs: '0.875rem',
+        sm: "1rem",
+        md: "1.125rem",
+        lg: "1.375rem",
+        xl: "5rem",
+        xxl: "10rem"
+    },
     fontWeight: {
         light: 300,
         normal: 500,
@@ -26,7 +34,10 @@ const defaultTheme = {
         md: 900,
         lg: 1200,
         xl: 1536
-    }
+    },
+    shadow: [
+
+    ]
 };
 
 const theme = {
