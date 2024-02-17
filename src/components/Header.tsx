@@ -25,6 +25,7 @@ export const Header = () => {
       </SubHeading>
       <SearchFieldsContainer>
         <InputField
+          name="position-job"
           icon={<IoSearchOutline />}
           type="text"
           placeholder="what position your are looking for?"
@@ -32,6 +33,7 @@ export const Header = () => {
           onChange={(e) => setJobPosition(e.target.value)}
         />
         <InputField
+          name="location-job"
           icon={<IoLocationOutline />}
           type="text"
           placeholder="Location"
