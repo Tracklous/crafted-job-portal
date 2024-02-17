@@ -1,18 +1,21 @@
 import { darktheme, lightTheme } from "./palette";
 
 const defaultTheme = {
+    fontFamily: 'Montserrat',
     fontSize: {
         xs: "0.75rem",
         sm: "0.875rem",
         md: "1rem",
         lg: "1.125rem",
-        xl: "1.375rem"
+        xl: "1.375rem",
+        xxl: "1.75rem"
+
     },
     spacing: {
         xs: '0.875rem',
         sm: "1rem",
         md: "1.125rem",
-        lg: "1.375rem",
+        lg: "2rem",
         xl: "5rem",
         xxl: "10rem"
     },

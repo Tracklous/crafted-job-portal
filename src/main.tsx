@@ -7,6 +7,7 @@ import "./index.css";
 import { router } from "./routes";
 import theme from "./theme";
 import { GlobalStyle } from "./theme/GlobalStyles";
+import { Header } from "./components/Header";
 
 const App = () => {
   // Todo create custom hook to provide theme details.
@@ -14,9 +15,10 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      <GlobalStyle/>
       <ThemeProvider theme={theme[currentTheme]}>
+      <GlobalStyle />
         <TopNavBar />
+        <Header />
         <RouterProvider router={router} />
       </ThemeProvider>
     </React.StrictMode>
