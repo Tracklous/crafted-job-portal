@@ -35,6 +35,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Montserrat", "Roboto", sans-serif;
   };
 
+  p {
+    margin: 0;
+    font-family: "Montserrat", "Roboto", sans-serif;
+  }
+
   button {
   border-radius: 8px;
   border: 1px solid transparent;

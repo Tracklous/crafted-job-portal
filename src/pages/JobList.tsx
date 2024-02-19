@@ -1,19 +1,71 @@
-import { useContext } from "react";
-import { JobContext } from "../context/JobContext";
+import { FC, useContext } from "react";
+import { IoLocationOutline, IoCalendarOutline } from "react-icons/io5";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { PiCurrencyDollar } from "react-icons/pi";
+import { JobContext, jobType } from "../context/JobContext";
+import { AvatarBox, FlexBox } from "../theme/common.style";
+import { getStringInitials } from "../utils/string.manipulation";
+import {
+  CardTitle,
+  CardSubTitle,
+  LabelContainer,
+  CardDescription,
+  ListContainer,
+} from "./JobList.styles";
+
+type JobCardProps = {
+  job: jobType;
+};
+
+const JobCard: FC<JobCardProps> = ({ job }) => {
+  return (
+    <li key={job.id}>
+      <FlexBox $flex="0 0 7%">
+        <AvatarBox>{getStringInitials(job.company)}</AvatarBox>
+      </FlexBox>
+      <FlexBox>
+        <CardTitle>{job.company}</CardTitle>
+        <CardSubTitle>{job.title}</CardSubTitle>
+        <FlexBox $display="flex" $gap={15}>
+          <LabelContainer>
+            <IoLocationOutline />
+            {job.location}
+          </LabelContainer>
+          <LabelContainer>
+            <AiOutlineClockCircle />
+            {job.jobType}
+          </LabelContainer>
+          <LabelContainer>
+            <PiCurrencyDollar />
+            {job.maxSalary}
+          </LabelContainer>
+          <LabelContainer>
+            <IoCalendarOutline />
+            {job.postedDate}
+          </LabelContainer>
+        </FlexBox>
+        <CardDescription>{job.description}</CardDescription>
+      </FlexBox>
+    </li>
+  );
+};
 
 export const JobList = () => {
   const { jobs } = useContext(JobContext);
+  const hasJobs = jobs && jobs.length > 0;
+  const jobsGrammar = hasJobs && jobs.length > 1 ? "Jobs" : "Job";
+  const totalJobsLabel = hasJobs
+    ? `${jobs.length} ${jobsGrammar} Found`
+    : "No Jobs found!";
 
   return (
-    <div>
-      <h2>Job List</h2>
-      <ul>
+    <>
+      <h4>{totalJobsLabel}</h4>
+      <ListContainer>
         {jobs?.map((job) => (
-          <li key={job.id}>
-            {job.title} - {job.maxSalary} per hour
-          </li>
+          <JobCard key={job.id} job={job} />
         ))}
-      </ul>
-    </div>
+      </ListContainer>
+    </>
   );
 };

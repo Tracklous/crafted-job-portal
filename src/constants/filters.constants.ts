@@ -121,4 +121,5 @@ export const JOB_TYPE = [
     { name: 'jobType', value: 'Full-Time', label: 'Full-Time' },
     { name: 'jobType', value: 'Temporary', label: 'Temporary' },
     { name: 'jobType', value: 'Part-time', label: 'Part-time' },
+    { name: 'jobType', value: 'Remote', label: 'Remote' },
 ];
