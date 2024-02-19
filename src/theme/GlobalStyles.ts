@@ -41,15 +41,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button {
-  border-radius: 8px;
+  border-radius: 5px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 0.3em 1em;
+  font-size: 1.1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: ${({ theme }) => theme.palette.bgDefault};
   cursor: pointer;
-  transition: border-color 0.25s;
 };
 
 button:hover {

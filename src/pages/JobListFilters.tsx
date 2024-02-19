@@ -7,60 +7,51 @@ import {
   DATE_OF_POSTING,
   WORK_EXPERIENCE,
   JOB_TYPE,
+  filterDefaultState,
 } from "../constants/filters.constants";
 import {
   RadioButtonGroup,
   SquareButtonGroup,
 } from "../components/RadioButtonGroup";
-import styled from "styled-components";
-
-const FieldLabel = styled.h5`
-  font-family: ${({ theme }) => theme.fontFamily};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-weight: 500;
-  color: ${({ theme }) => theme.palette.textPrimary};
-`;
-
-const FilterGroupWrapper = styled.div`
-  position: relative;
-  margin-top: ${({ theme }) => theme.spacing.md};
-`;
+import { FlexBox } from "../theme/common.style";
+import {
+  ExtendedFlexBox,
+  FieldLabel,
+  FilterGroupWrapper,
+} from "./JobListFilters.styles";
 
 export const Filters = () => {
-  const { applyFilter } = useContext(JobContext);
-  const [selectedOption, setSelectedOption] = useState({
-    country: COUNTRIES[0].value,
-    salaryRange: "",
-    salaryType: "",
-    postingDate: "",
-    workExperience: "",
-    jobType: "",
-  });
+  const { applyFilter, resetAllFilters } = useContext(JobContext);
+  const [selectedOption, setSelectedOption] = useState(filterDefaultState);
+  const isFilterEmpty = Object.values(selectedOption).some(Boolean);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // We get property name from event.target.name and set the value from onChange in it
     // So name in our input component should be same as the property in data state
-
-    console.log(">>", {
-      selectedOption,
-      name: event.target.name,
-      value: event.target.value,
-    });
-
-    setSelectedOption({
+    const newFilters = {
       ...selectedOption,
       [event.target.name]: event.target.value,
-    });
+    };
+
+    setSelectedOption(newFilters);
+    applyFilter(newFilters);
   };
 
-  //   const handleFilter = (skillSet, minSalary) => {
-  //     // Filter jobs based on skill set and min salary
-  //     // Update jobs context state accordingly
-  //   };
+  const resetFilters = () => {
+    setSelectedOption(filterDefaultState);
+    resetAllFilters();
+  };
 
   return (
     <>
-      <h4>Filters</h4>
+      <FlexBox>
+        <ExtendedFlexBox>
+          <h4>Filters</h4>
+          {isFilterEmpty && (
+            <button onClick={resetFilters}>Reset Filters</button>
+          )}
+        </ExtendedFlexBox>
+      </FlexBox>
       <FilterGroupWrapper>
         <FieldLabel>Location</FieldLabel>
         <RadioButtonGroup

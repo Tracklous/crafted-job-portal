@@ -2,6 +2,7 @@ import { FC, useContext } from "react";
 import { IoLocationOutline, IoCalendarOutline } from "react-icons/io5";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { PiCurrencyDollar } from "react-icons/pi";
+import { LiaCitySolid } from "react-icons/lia";
 import { JobContext, jobType } from "../context/JobContext";
 import { AvatarBox, FlexBox } from "../theme/common.style";
 import { getStringInitials } from "../utils/string.manipulation";
@@ -29,6 +30,10 @@ const JobCard: FC<JobCardProps> = ({ job }) => {
         <FlexBox $display="flex" $gap={15}>
           <LabelContainer>
             <IoLocationOutline />
+            {job.country}
+          </LabelContainer>
+          <LabelContainer>
+            <LiaCitySolid />
             {job.location}
           </LabelContainer>
           <LabelContainer>

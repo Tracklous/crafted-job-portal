@@ -3,6 +3,7 @@ import { darktheme, lightTheme } from "./palette";
 const defaultTheme = {
     fontFamily: 'Montserrat',
     fontSize: {
+        xxs: "0.62rem", 
         xs: "0.75rem",
         sm: "0.875rem",
         md: "1rem",

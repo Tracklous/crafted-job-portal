@@ -1,5 +1,5 @@
 import { colord } from "colord";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Stack = styled.div`
   display: flex;
@@ -32,4 +32,13 @@ export const AvatarBox = styled.div`
   color: ${({ theme }) => theme.palette.secondary};
   font-family: ${({ theme }) => theme.fontFamily};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
+
+export const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 `;

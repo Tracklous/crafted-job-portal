@@ -89,15 +89,16 @@ export const COUNTRIES = [
 export const SALARY_RANGE = [
     { name: 'salaryRange', value: Infinity, label: 'Any' },
     { name: 'salaryRange', value: 5000, label: '< 5k' },
-    { name: 'salaryRange', value: 10000, label: '< 10k' },
+    // { name: 'salaryRange', value: 10000, label: '< 10k' },
     { name: 'salaryRange', value: 100000, label: '< 100k' },
-    { name: 'salaryRange', value: 150000, label: '< 150k' },
+    // { name: 'salaryRange', value: 150000, label: '< 150k' },
     { name: 'salaryRange', value: 200000, label: '< 200k' },
-    { name: 'salaryRange', value: 250000, label: '< 250k' },
+    // { name: 'salaryRange', value: 250000, label: '< 250k' },
     { name: 'salaryRange', value: 300000, label: '< 300k' },
 ];
 
 export const SALARY_TYPE = [
+    // { name: 'salaryType', value: 'Any', label: 'Any' },
     { name: 'salaryType', value: 'hourly', label: 'hourly' },
     { name: 'salaryType', value: 'monthly', label: 'monthly' },
     { name: 'salaryType', value: 'yearly', label: 'yearly' },
@@ -109,6 +110,7 @@ export const DATE_OF_POSTING = [
     { name: 'postingDate', value: 'Last 7 days', label: 'Last 7 days' },
     { name: 'postingDate', value: 'Last month', label: 'Last month' },
 ];
+export type datePostingType = 'All Time' | 'Last 24 hours' | 'Last 7 days' | 'Last month';
 
 export const WORK_EXPERIENCE = [
     { name: 'workExperience', value: 'Any Experience', label: 'Any Experience' },
@@ -123,3 +125,15 @@ export const JOB_TYPE = [
     { name: 'jobType', value: 'Part-time', label: 'Part-time' },
     { name: 'jobType', value: 'Remote', label: 'Remote' },
 ];
+
+export const filterDefaultState = {
+    country: "",
+    location: "",
+    salaryRange: "",
+    salaryType: "",
+    postingDate: "",
+    workExperience: "",
+    jobType: "",
+};
+
+export type FilterOptions = typeof filterDefaultState;
