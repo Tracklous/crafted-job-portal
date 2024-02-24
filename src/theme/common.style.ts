@@ -35,6 +35,7 @@ export const FlexBox = styled.div<BoxProps>`
   flex: ${({ $flex }) => $flex || 1};
   display: ${({ $display }) => $display || "block"};
   gap: ${({ $gap }) => `${$gap}px` || "none"};
+  background-color: ${({ theme }) => theme.palette.commonWhite};
 `;
 
 export const LabelContainer = styled.div`

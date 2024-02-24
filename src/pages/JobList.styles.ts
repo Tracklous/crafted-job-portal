@@ -13,7 +13,7 @@ export const ListContainer = styled.ul`
     padding: ${({ theme }) => theme.spacing.xs};
     border: 1px solid ${({ theme }) => theme.palette.bgDefault};
     flex: 1 0 90%;
-    background-color: ${({ theme }) => theme.palette.commonBlack};
+    background-color: ${({ theme }) => theme.palette.commonWhite};
     display: flex;
     opacity: 0;
     animation: ${fadeInAnimation} 200ms ease-in-out forwards;
