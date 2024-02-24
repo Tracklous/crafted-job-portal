@@ -17,6 +17,7 @@ export type InputProps = {
   required?: boolean;
   name?: string;
   error?: string;
+  width?: string;
 };
 
 export const InputField = ({
@@ -28,6 +29,7 @@ export const InputField = ({
   onChange,
   name,
   error,
+  width = "",
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,10 +48,9 @@ export const InputField = ({
   const inputType = type === "password" && showPassword ? "text" : type;
 
   return (
-    <Container>
+    <Container $width={width}>
       <Wrapper>
         {icon}
-
         <Input
           placeholder={placeholder}
           type={inputType}

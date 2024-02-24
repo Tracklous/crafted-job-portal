@@ -1,6 +1,24 @@
 import { colord } from "colord";
 import styled, { keyframes } from "styled-components";
 
+export const Container = styled.div`
+  background-color: ${({ theme }) => theme.palette.bgDefault};
+  flex: 1;
+  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.xxl}`};
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+`;
+
+type ColumnStyleProps = {
+  $spaceRatio: number;
+};
+
+export const Column = styled.div<ColumnStyleProps>`
+  background-color: ${({ theme }) => theme.palette.bgPaper};
+  flex: ${({ $spaceRatio }) => $spaceRatio};
+  padding: ${({ theme }) => theme.spacing.xs};
+`;
+
 export const Stack = styled.div`
   display: flex;
   align-items: center;
@@ -19,6 +37,15 @@ export const FlexBox = styled.div<BoxProps>`
   gap: ${({ $gap }) => `${$gap}px` || "none"};
 `;
 
+export const LabelContainer = styled.div`
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) =>
+    colord(theme.palette.textSecondary).alpha(0.85).toRgbString()};
+`;
 
 export const AvatarBox = styled.div`
   margin-top: 1px;

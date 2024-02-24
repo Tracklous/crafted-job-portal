@@ -4,12 +4,11 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { PiCurrencyDollar } from "react-icons/pi";
 import { LiaCitySolid } from "react-icons/lia";
 import { JobContext, jobType } from "../context/JobContext";
-import { AvatarBox, FlexBox } from "../theme/common.style";
+import { AvatarBox, FlexBox, LabelContainer } from "../theme/common.style";
 import { getStringInitials } from "../utils/string.manipulation";
 import {
   CardTitle,
   CardSubTitle,
-  LabelContainer,
   CardDescription,
   ListContainer,
 } from "./JobList.styles";

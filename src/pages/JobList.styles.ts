@@ -33,16 +33,6 @@ export const CardSubTitle = styled.p`
   color: ${({ theme }) => theme.palette.textPrimary};
 `;
 
-export const LabelContainer = styled.div`
-  margin: 8px 0;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) =>
-    colord(theme.palette.textSecondary).alpha(0.85).toRgbString()};
-`;
-
 export const CardDescription = styled.p`
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.palette.textPrimary};

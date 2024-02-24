@@ -1,12 +1,12 @@
 export const darktheme = {
     commonWhite: '#fcfffb',
-    commonBlack: '#fcfffb',
+    commonBlack: 'black',
     // Primary colors
     primary: "#182a4a",
     secondary: "#1e5e9e",
     // Text colors
     textPrimary: "#2d262a",
-    textSecondary: "#6d9bff",
+    textSecondary: "#616161",
     textDisabled: '#eae8e9',
     divider: 'rgba(0,0,0,0.12)',
     border: "#e0e0e0",
@@ -31,7 +31,8 @@ export const darktheme = {
 
 export const lightTheme = {
     commonWhite: '#fcfffb',
-    commonBlack: '#fcfffb',
+    commonBlack: 'black',
+    // '#fcfffb',
     // Primary colors
     primary: "#182a4a",
     secondary: "#1e5e9e",
