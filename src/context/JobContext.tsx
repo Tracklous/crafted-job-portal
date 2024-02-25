@@ -16,6 +16,7 @@ export type jobType = {
   description: string;
   skillSet: string[];
   postedDate: string; // ['2024-01-06', '2024-02-19', '2024-02-12', '2024-02-17', '2024-01-16', '2024-02-21', '2024-02-18', '2024-02-21', '2024-01-20', '2024-02-13']
+  companyLogo: string;
 };
 
 type JobContextType = {
@@ -54,6 +55,7 @@ export const DemoJobsData = [
       "Hyderabad of Google India At Hi-tech city, we're passionate about improving patient outcomes and helping save lives.",
     skillSet: ["HTML", "CSS", "JavaScript"],
     postedDate: "2024-02-18",
+    companyLogo: "",
   },
   {
     id: 2,
@@ -69,6 +71,7 @@ export const DemoJobsData = [
     description: "This is demo job description",
     skillSet: ["HTML", "CSS", "JavaScript"],
     postedDate: "2024-01-20",
+    companyLogo: "",
   },
   {
     id: 3,
@@ -84,6 +87,7 @@ export const DemoJobsData = [
     description: "This is demo job description",
     skillSet: ["HTML", "CSS", "JavaScript"],
     postedDate: "2024-01-16",
+    companyLogo: "",
   },
 ] satisfies jobType[];
 

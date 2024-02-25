@@ -99,9 +99,9 @@ export const SALARY_RANGE = [
 
 export const SALARY_TYPE = [
     // { name: 'salaryType', value: 'Any', label: 'Any' },
-    { name: 'salaryType', value: 'hourly', label: 'hourly' },
-    { name: 'salaryType', value: 'monthly', label: 'monthly' },
-    { name: 'salaryType', value: 'yearly', label: 'yearly' },
+    { name: 'salaryType', value: 'Hourly', label: 'Hourly' },
+    { name: 'salaryType', value: 'Monthly', label: 'Monthly' },
+    { name: 'salaryType', value: 'Yearly', label: 'Yearly' },
 ];
 
 export const DATE_OF_POSTING = [
@@ -124,6 +124,14 @@ export const JOB_TYPE = [
     { name: 'jobType', value: 'Temporary', label: 'Temporary' },
     { name: 'jobType', value: 'Part-time', label: 'Part-time' },
     { name: 'jobType', value: 'Remote', label: 'Remote' },
+];
+
+export const SKILLS_SET = [
+    { name: "skillSet", label: "React", value: "React" },
+    { name: "skillSet", label: "HTML/CSS", value: "HTML/CSS" },
+    { name: "skillSet", label: "JavaScript", value: "JavaScript" },
+    { name: "skillSet", label: "Python", value: "Python" },
+    { name: "skillSet", label: "Java", value: "Java" },
 ];
 
 export const filterDefaultState = {

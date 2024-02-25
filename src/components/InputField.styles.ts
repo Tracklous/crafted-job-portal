@@ -1,8 +1,17 @@
 import styled, { css } from "styled-components";
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { fadeInAnimation } from "../theme/common.style";
 
-export const Container = styled.div<{ $width: string }>`
-    width: ${({ $width }) => $width ?? '100%'}
+export const Container = styled.div<{ $width: string | null }>`
+    width: ${({ $width }) => $width ? $width : '100%'};
+`
+
+export const Label = styled.label`
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    display: inline-block;
+    padding-bottom: ${({ theme }) => theme.spacing.xxs};
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    font-family: ${({ theme }) => theme.fontFamily};
 `
 
 export const Wrapper = styled.div`
@@ -17,12 +26,15 @@ export const Wrapper = styled.div`
     }
 `
 
-export const Input = styled.input`
+export const Input = styled.input<{ $error?: boolean }>`
     font-size: 0.85rem;
     padding: 1rem 3rem;
     border: 1px solid rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
     width: 100%;
+
+    ${({ theme, $error }) => $error && css`
+    border-color:${theme.palette.error};
+    `};
 `
 
 const EyeIcon = css`
@@ -40,7 +52,10 @@ export const HidePassIcon = styled(BsEyeSlash)`
 `
 
 export const ErrorText = styled.p`
-    font-size: 0.8rem;
-    color: #fa4343;
-    margin: 0.5rem 0;
+    position: absolute;
+    font-size: 0.6rem;
+    color: ${({ theme }) => theme.palette.error};
+    margin: 0.1rem 0;
+    opacity: 0;
+    animation: ${fadeInAnimation} 0.3s ease-in-out forwards;
 `

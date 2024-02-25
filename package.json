@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^5.15.10",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.7",
     "colord": "^2.9.3",
     "msw": "^2.2.0",
