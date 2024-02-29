@@ -40,6 +40,7 @@ export const WrapperSelectInput = styled.div`
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.25);
   padding: ${({ theme }) => theme.spacing.xxs};
+  min-height: 30.5px;
 
   &:focus-within {
     outline: ${({ theme }) => theme.palette.secondary} auto 1px;

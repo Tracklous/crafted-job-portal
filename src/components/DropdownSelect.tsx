@@ -36,8 +36,9 @@ export const DropdownSelect: FC<MultiSelectProps> = ({
 }) => {
   const isMultiSelect = Boolean(multiselect);
   const [isOpen, setIsOpen] = useState(false);
-  const selectedItems = selectedOption;
+  const selectedItems = selectedOption.filter(({ value }) => value !== "");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const isMultiSelectView = multiselect && selectedItems.length > 0;
   const ref = useClickAway(() => {
     setIsOpen(false);
   });
@@ -72,24 +73,17 @@ export const DropdownSelect: FC<MultiSelectProps> = ({
   return (
     <MultiSelectContainer ref={ref as React.RefObject<HTMLDivElement>}>
       {label && <Label htmlFor={name}>{label}</Label>}
-      <WrapperSelectInput onClick={toggleDropdown}>
+      <WrapperSelectInput>
         {multiselect &&
           selectedItems?.map((item) => (
             <SelectedItem key={item.value}>
               {item.label}
-              <CloseButton
-                onClick={(e) => {
-                  e.preventDefault();
-                  removeItem(item);
-                }}
-              >
+              <CloseButton onClick={() => removeItem(item)}>
                 <IoClose />
               </CloseButton>
             </SelectedItem>
           ))}
-        {!multiselect && selectedOption.length > 0 ? (
-          <SelectedItemText>{selectedOption[0]?.value}</SelectedItemText>
-        ) : (
+        {isMultiSelectView || selectedOption[0]?.value == "" ? (
           <SelectInput
             id={name}
             name={name}
@@ -97,7 +91,10 @@ export const DropdownSelect: FC<MultiSelectProps> = ({
             placeholder={placeholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            readOnly={!isMultiSelectView}
           />
+        ) : (
+          <SelectedItemText>{selectedOption[0]?.value}</SelectedItemText>
         )}
         <OpenButton $isOpen={isOpen} onClick={toggleDropdown}>
           <IoChevronDownOutline />

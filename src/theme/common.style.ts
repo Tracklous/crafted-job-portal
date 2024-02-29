@@ -2,7 +2,8 @@ import { colord } from "colord";
 import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.palette.bgDefault};
+  background-color: ${({ theme }) => theme.palette.bgDefault}; 
+  min-height: 100vh;
   flex: 1;
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.xxl}`};
   display: flex;

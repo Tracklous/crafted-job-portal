@@ -16,6 +16,9 @@ import {
   POST_A_JOB_FIELDS,
   PostAJobFieldsKeys,
 } from "../constants/postJob.constants";
+import axios from "axios";
+import { jobDetailsType } from "../models/Jobs.types";
+import { nanoid } from "nanoid";
 
 export const PostJob = () => {
   const [jobFormFields, setJobFormFelids] = useState(POST_A_JOB_FIELDS);
@@ -23,7 +26,9 @@ export const PostJob = () => {
     Partial<{ [key in PostAJobFieldsKeys]: string }>[]
   >([]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     event.preventDefault();
     // We get property name from event.target.name and set the value from onChange in it
     // So name in our input component should be same as the property in data state.
@@ -47,13 +52,42 @@ export const PostJob = () => {
     const isValid = validateJobPostFormData(jobFormFields, setValidationErrors);
 
     if (isValid) {
-      console.log(jobFormFields);
-    }
-    // console.log("Data is invalid: ", jobFormFields);
-  };
+      const prepareParams = {
+        id: nanoid(),
+        title: jobFormFields.title,
+        jobType: jobFormFields.jobType[0].value,
+        salaryType: jobFormFields.salaryType[0].value,
+        company: jobFormFields.companyName,
+        workExperience: jobFormFields.workExperience[0].value,
+        country: jobFormFields.country,
+        location: jobFormFields.location,
+        minSalary: Number(jobFormFields.minSalary),
+        maxSalary: Number(jobFormFields.maxSalary),
+        description: jobFormFields.description,
+        skillSet: jobFormFields.skillSet.map(({ value }) => value),
+        postedDate: jobFormFields.postingDate,
+        companyLogo: jobFormFields.companyLogo,
+      } satisfies jobDetailsType;
 
+      console.log(jobFormFields, prepareParams);
+
+      axios
+        .post("/api/post-job", prepareParams)
+        .then((res) => {
+          console.log(">>> Posting success", JSON.parse(res.data));
+        })
+        .catch((err) => {
+          console.error(">>>Err fetchJobList:", err);
+        })
+        .finally(() => {
+          // setIsLoading(false);
+        });
+    } else {
+      console.log("Data is invalid: ", jobFormFields);
+    }
+  };
   return (
-    <Container>
+    <Container as="main">
       <FormGrid as="form" action="#" onSubmit={handleFormSubmit}>
         <ul>
           <GridItem $flex={1 / 2}>
@@ -185,7 +219,7 @@ export const PostJob = () => {
               placeholder="Type you job description"
               type="description"
               value={jobFormFields.description}
-              onChange={handleInputChange}
+              onTextAreaChange={handleInputChange}
             />
           </GridItem>
           <GridItem>

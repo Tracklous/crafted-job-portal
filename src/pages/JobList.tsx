@@ -1,20 +1,24 @@
-import { FC, useContext } from "react";
-import { IoLocationOutline, IoCalendarOutline } from "react-icons/io5";
+import { FC, useContext, useEffect, useState } from "react";
 import { AiOutlineClockCircle } from "react-icons/ai";
-import { PiCurrencyDollar } from "react-icons/pi";
+import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
 import { LiaCitySolid } from "react-icons/lia";
-import { JobContext, jobType } from "../context/JobContext";
+import { PiCurrencyDollar } from "react-icons/pi";
+import { JobContext } from "../context/JobContext";
+import { jobDetailsType } from "../models/Jobs.types";
 import { AvatarBox, FlexBox, LabelContainer } from "../theme/common.style";
 import { getStringInitials } from "../utils/string.manipulation";
 import {
-  CardTitle,
-  CardSubTitle,
   CardDescription,
+  CardSubTitle,
+  CardTitle,
   ListContainer,
 } from "./JobList.styles";
+import axios from "axios";
+import { JobFiltersContext } from "../context/JobFilterContext";
+import { applyJobFilter } from "../utils/jobFilter.utils";
 
 type JobCardProps = {
-  job: jobType;
+  job: jobDetailsType;
 };
 
 const JobCard: FC<JobCardProps> = ({ job }) => {
@@ -55,18 +59,44 @@ const JobCard: FC<JobCardProps> = ({ job }) => {
 };
 
 export const JobList = () => {
-  const { jobs } = useContext(JobContext);
-  const hasJobs = jobs && jobs.length > 0;
-  const jobsGrammar = hasJobs && jobs.length > 1 ? "Jobs" : "Job";
+  const { jobs, setJobs } = useContext(JobContext);
+  const { selectedOption } = useContext(JobFiltersContext);
+  const derivedJobList = applyJobFilter(jobs, selectedOption);
+  const hasJobs = derivedJobList && derivedJobList.length > 0;
+  const jobsGrammar = hasJobs && derivedJobList.length > 1 ? "Jobs" : "Job";
   const totalJobsLabel = hasJobs
-    ? `${jobs.length} ${jobsGrammar} Found`
+    ? `${derivedJobList.length} ${jobsGrammar} Found`
     : "No Jobs found!";
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    function fetchJobList() {
+      setIsLoading(true);
+      axios
+        .get("/api/jobs")
+        .then((res) => {
+          console.log(">>>", JSON.parse(res.data));
+          setJobs(JSON.parse(res.data));
+        })
+        .catch((err) => {
+          console.error(">>>Err fetchJobList:", err);
+          setIsError(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+
+    fetchJobList();
+  }, []);
 
   return (
     <>
       <h4>{totalJobsLabel}</h4>
+      {isLoading && <h6 style={{ marginTop: "10px" }}>Loading jobs...</h6>}
       <ListContainer>
-        {jobs?.map((job) => (
+        {derivedJobList?.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}
       </ListContainer>

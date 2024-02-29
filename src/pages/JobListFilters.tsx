@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { JobContext } from "../context/JobContext";
+import { useContext } from "react";
 import {
   COUNTRIES,
   SALARY_RANGE,
@@ -8,6 +7,7 @@ import {
   WORK_EXPERIENCE,
   JOB_TYPE,
   filterDefaultState,
+  FilterOptions,
 } from "../constants/filters.constants";
 import {
   RadioButtonGroup,
@@ -19,11 +19,11 @@ import {
   FieldLabel,
   FilterGroupWrapper,
 } from "./JobListFilters.styles";
+import { JobFiltersContext } from "../context/JobFilterContext";
 
 export const Filters = () => {
-  const { applyFilter, resetAllFilters } = useContext(JobContext);
-  const [selectedOption, setSelectedOption] = useState(filterDefaultState);
-  const isFilterEmpty = Object.values(selectedOption).some(Boolean);
+  const { selectedOption, isFilterEmpty, setSelectedOption } =
+    useContext(JobFiltersContext);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // We get property name from event.target.name and set the value from onChange in it
@@ -31,15 +31,13 @@ export const Filters = () => {
     const newFilters = {
       ...selectedOption,
       [event.target.name]: event.target.value,
-    };
+    } as FilterOptions;
 
     setSelectedOption(newFilters);
-    applyFilter(newFilters);
   };
 
   const resetFilters = () => {
     setSelectedOption(filterDefaultState);
-    resetAllFilters();
   };
 
   return (

@@ -59,3 +59,15 @@ export const ErrorText = styled.p`
     opacity: 0;
     animation: ${fadeInAnimation} 0.3s ease-in-out forwards;
 `
+
+export const DescriptionBox = styled.textarea<{ $error?: boolean }>`
+  width: 100%;
+  min-height: 100px;
+  padding: 1rem 3rem;
+  font-size: 0.85rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+
+  ${({ theme, $error }) => $error && css`border-color: ${theme.palette.error}`};
+`

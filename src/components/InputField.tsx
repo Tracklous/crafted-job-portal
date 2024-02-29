@@ -7,6 +7,7 @@ import {
   Input,
   ErrorText,
   Label,
+  DescriptionBox,
 } from "./InputField.styles";
 
 export type InputProps = {
@@ -14,7 +15,11 @@ export type InputProps = {
   icon?: React.ReactNode;
   type: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onTextAreaChange?: (
+    // Todo: Need to address this typescript issue.
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLTextAreaElement>
+  ) => void;
   required?: boolean;
   name?: string;
   error?: string;
@@ -30,6 +35,7 @@ export const InputField = ({
   required,
   value,
   onChange,
+  onTextAreaChange,
   name,
   error,
   width = null,
@@ -68,7 +74,20 @@ export const InputField = ({
             $error={Boolean(error)}
           />
         )}
-        {type === "description" && <div> Other input</div>}
+        {type === "description" && (
+          <DescriptionBox
+            className="input-field"
+            id={name}
+            placeholder={placeholder}
+            itemType="description"
+            // type={inputType}
+            required={required}
+            value={value}
+            onChange={onTextAreaChange}
+            name={name}
+            $error={Boolean(error)}
+          />
+        )}
         {type === "password" && renderPasswordIcon()}
       </Wrapper>
 

@@ -45,7 +45,6 @@ export const validateJobPostFormData = (errData: PostAJobFields, setErrors: (err
     }
 
     setErrors(err)
-
     if (err.length > 0) return false
     else return true
 };

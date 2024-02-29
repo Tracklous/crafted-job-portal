@@ -6,6 +6,9 @@ import { CustomButton } from "./CustomButton";
 const NavBar = styled.nav`
   height: 55px;
   background-color: ${({ theme }) => theme.palette.commonWhite};
+  position: sticky;
+  top: 0;
+  z-index: 999;
   display: flex;
   align-items: center;
   padding: ${({ theme }) => `0px ${theme.spacing.xxl}`};
