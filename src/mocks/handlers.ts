@@ -1,9 +1,7 @@
 import { HttpResponse, delay, http } from 'msw';
 import { jobList } from './jobList.demoData';
 import { dummyUserCredentials, dummyUserDetails } from './user.demoData';
-const JOBS_PATH_LOCAL_STORAGE = 'jobsList';
-const USER_PATH_LOCAL_STORAGE = 'users';
-const LOGGED_USER_PATH_SESSION_STORAGE = 'userSession';
+import { USER_PATH_LOCAL_STORAGE, LOGGED_USER_PATH_SESSION_STORAGE, JOBS_PATH_LOCAL_STORAGE } from '../constants/App.config';
 
 
 const dummyUsers = JSON.parse(localStorage.getItem(USER_PATH_LOCAL_STORAGE) || 'null');
@@ -18,13 +16,12 @@ export const handlers = [
         await delay(2000);
         // Read the intercepted request body as JSON.
         const { username, password } = await request.json() as { username: 'string', password: string };
-        console.log(">>> In login", username, password);
+        console.log(">>> In login api", username, password);
         // Simulate successful login
         // Performing basic authentication logic.
         if (dummyUserCredentials[username] && dummyUserCredentials[username] === password) {
             const userDetails = JSON.parse(localStorage.getItem(USER_PATH_LOCAL_STORAGE) || "");
             sessionStorage.setItem(LOGGED_USER_PATH_SESSION_STORAGE, JSON.stringify(userDetails[username]));
-
             return HttpResponse.json({
                 message: 'loginSuccessful', userDetails: userDetails[username]
             }, { status: 200 });

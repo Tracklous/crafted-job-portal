@@ -2,6 +2,7 @@ import { IoIosCodeWorking } from "react-icons/io";
 import styled from "styled-components";
 import { Stack } from "../theme/common.style";
 import { CustomButton } from "./CustomButton";
+import { useAuth } from "../context/AuthContext";
 
 const NavBar = styled.nav`
   height: 55px;
@@ -34,6 +35,7 @@ const ButtonGroup = styled.div`
 `;
 
 export const TopNavBar = () => {
+  const { isAuthenticated, logout } = useAuth();
   return (
     <NavBar>
       <Stack>
@@ -41,10 +43,14 @@ export const TopNavBar = () => {
         <Logo>Job Portal</Logo>
       </Stack>
       <ButtonGroup>
-        <CustomButton
-          label="Sign in"
-          onClick={() => console.log("Sign in clicked!!")}
-        />
+        {isAuthenticated ? (
+          <CustomButton label="Logout" onClick={logout} />
+        ) : (
+          <CustomButton
+            label="Login"
+            onClick={() => console.log("Login in clicked!!")}
+          />
+        )}
       </ButtonGroup>
     </NavBar>
   );

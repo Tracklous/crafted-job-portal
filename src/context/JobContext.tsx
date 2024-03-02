@@ -1,8 +1,8 @@
 import { ReactNode, createContext, useState } from "react";
-import { jobDetailsType } from "../models/Jobs.types";
+import { JobDetailsType } from "../models/Jobs.types";
 
 type JobContextType = {
-  jobs: null | jobDetailsType[];
+  jobs: null | JobDetailsType[];
   setJobs: React.Dispatch<React.SetStateAction<null | any[]>>;
 };
 
@@ -16,7 +16,7 @@ type JobProviderProps = {
 };
 
 export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
-  const [jobs, setJobs] = useState<null | jobDetailsType[] | []>([]);
+  const [jobs, setJobs] = useState<null | JobDetailsType[] | []>([]);
 
   return (
     <JobContext.Provider value={{ jobs, setJobs }}>

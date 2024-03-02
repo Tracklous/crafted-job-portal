@@ -65,7 +65,6 @@ export const JobList = () => {
   // Async logic
   const { data, isLoading, isError } = useFetch({
     url: "/api/jobs",
-    method: "GET",
   });
   const JobsList = data as JobDetailsType[] | null;
   const filteredJobs = applyJobFilter(JobsList, selectedOption, searchQueries);

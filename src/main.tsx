@@ -1,27 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
-import { TopNavBar } from "./components/TopNavBar";
+import { BrowserRouter } from "react-router-dom";
+import { App } from "./App";
 import "./index.css";
-import { router } from "./routes";
-import theme from "./theme";
-import { GlobalStyle } from "./theme/GlobalStyles";
 
-const App = () => {
-  // Todo create custom hook to provide theme details.
-  const [currentTheme, _] = useState<"dark" | "light">("light");
-
-  return (
-    <React.StrictMode>
-      <ThemeProvider theme={theme[currentTheme]}>
-      <GlobalStyle />
-        <TopNavBar />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </React.StrictMode>
-  );
-};
+const Main = () => (
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 async function enableMocking() {
   const { worker } = await import("./mocks/browser");
@@ -31,5 +20,5 @@ async function enableMocking() {
 }
 
 enableMocking().then(() => {
-  ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
+  ReactDOM.createRoot(document.getElementById("root")!).render(<Main />);
 });
