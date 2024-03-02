@@ -1,13 +1,18 @@
 import { colord } from "colord";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $FixedHeight?: string }>`
   background-color: ${({ theme }) => theme.palette.bgDefault}; 
-  min-height: 100vh;
+  min-height: 90vh;
   flex: 1;
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.xxl}`};
   display: flex;
   gap: ${({ theme }) => theme.spacing.md};
+
+  ${({ $FixedHeight }) => $FixedHeight && css`
+    min-height: ${$FixedHeight};
+    max-height: ${$FixedHeight};
+  `}
 `;
 
 type ColumnStyleProps = {
@@ -15,6 +20,7 @@ type ColumnStyleProps = {
 };
 
 export const Column = styled.div<ColumnStyleProps>`
+  overflow-y :scroll;
   background-color: ${({ theme }) => theme.palette.bgPaper};
   flex: ${({ $spaceRatio }) => $spaceRatio};
   padding: ${({ theme }) => theme.spacing.xs};

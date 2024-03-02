@@ -1,4 +1,4 @@
-export type jobDetailsType = {
+export type JobDetailsType = {
     id: number | string;
     title: string;
     company: string;
@@ -12,5 +12,6 @@ export type jobDetailsType = {
     description: string;
     skillSet: string[];
     postedDate: string; // ['2024-01-06', '2024-02-19', '2024-02-12', '2024-02-17', '2024-01-16', '2024-02-21', '2024-02-18', '2024-02-21', '2024-01-20', '2024-02-13']
-    companyLogo: string;
+    companyLogo?: string;
+    dateOfPosting?: string;
 };

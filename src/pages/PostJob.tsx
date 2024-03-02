@@ -17,7 +17,7 @@ import {
   PostAJobFieldsKeys,
 } from "../constants/postJob.constants";
 import axios from "axios";
-import { jobDetailsType } from "../models/Jobs.types";
+import { JobDetailsType } from "../models/Jobs.types";
 import { nanoid } from "nanoid";
 
 export const PostJob = () => {
@@ -67,7 +67,7 @@ export const PostJob = () => {
         skillSet: jobFormFields.skillSet.map(({ value }) => value),
         postedDate: jobFormFields.postingDate,
         companyLogo: jobFormFields.companyLogo,
-      } satisfies jobDetailsType;
+      } satisfies JobDetailsType;
 
       console.log(jobFormFields, prepareParams);
 

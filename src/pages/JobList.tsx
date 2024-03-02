@@ -1,11 +1,16 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
 import { LiaCitySolid } from "react-icons/lia";
 import { PiCurrencyDollar } from "react-icons/pi";
-import { JobContext } from "../context/JobContext";
-import { jobDetailsType } from "../models/Jobs.types";
+import { PaginationFooter } from "../components/PaginationFooter";
+import { PAGINATION_PAGE_SIZE } from "../constants/App.config";
+import { JobFiltersContext } from "../context/JobFilterContext";
+import { useFetch } from "../hooks/useFetch";
+import { usePagination } from "../hooks/usePagination";
+import { JobDetailsType } from "../models/Jobs.types";
 import { AvatarBox, FlexBox, LabelContainer } from "../theme/common.style";
+import { applyJobFilter } from "../utils/jobFilter.utils";
 import { getStringInitials } from "../utils/string.manipulation";
 import {
   CardDescription,
@@ -13,12 +18,9 @@ import {
   CardTitle,
   ListContainer,
 } from "./JobList.styles";
-import axios from "axios";
-import { JobFiltersContext } from "../context/JobFilterContext";
-import { applyJobFilter } from "../utils/jobFilter.utils";
 
 type JobCardProps = {
-  job: jobDetailsType;
+  job: JobDetailsType;
 };
 
 const JobCard: FC<JobCardProps> = ({ job }) => {
@@ -59,47 +61,45 @@ const JobCard: FC<JobCardProps> = ({ job }) => {
 };
 
 export const JobList = () => {
-  const { jobs, setJobs } = useContext(JobContext);
-  const { selectedOption } = useContext(JobFiltersContext);
-  const derivedJobList = applyJobFilter(jobs, selectedOption);
-  const hasJobs = derivedJobList && derivedJobList.length > 0;
-  const jobsGrammar = hasJobs && derivedJobList.length > 1 ? "Jobs" : "Job";
+  const { selectedOption, searchQueries } = useContext(JobFiltersContext);
+  // Async logic
+  const { data, isLoading, isError } = useFetch({
+    url: "/api/jobs",
+    method: "GET",
+  });
+  const JobsList = data as JobDetailsType[] | null;
+  const filteredJobs = applyJobFilter(JobsList, selectedOption, searchQueries);
+  const { paginatedData, currentPage, nextPage, prevPage } =
+    usePagination<JobDetailsType>(filteredJobs || [], {
+      initialPageSize: PAGINATION_PAGE_SIZE,
+    });
+  // UI vars
+  const hasJobs = filteredJobs && filteredJobs.length > 0;
+  const jobsGrammar = hasJobs && filteredJobs.length > 1 ? "Jobs" : "Job";
   const totalJobsLabel = hasJobs
-    ? `${derivedJobList.length} ${jobsGrammar} Found`
+    ? `${filteredJobs.length} ${jobsGrammar} Found`
     : "No Jobs found!";
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    function fetchJobList() {
-      setIsLoading(true);
-      axios
-        .get("/api/jobs")
-        .then((res) => {
-          console.log(">>>", JSON.parse(res.data));
-          setJobs(JSON.parse(res.data));
-        })
-        .catch((err) => {
-          console.error(">>>Err fetchJobList:", err);
-          setIsError(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-
-    fetchJobList();
-  }, []);
+  // Job list card UI/UX.
+  const jobListUi = hasJobs && (
+    <ListContainer>
+      {paginatedData?.map((job) => (
+        <JobCard key={job.id} job={job} />
+      ))}
+      <PaginationFooter
+        totalPages={filteredJobs.length / PAGINATION_PAGE_SIZE}
+        currentPage={currentPage}
+        onNextPage={nextPage}
+        onPrevPage={prevPage}
+      />
+    </ListContainer>
+  );
 
   return (
     <>
       <h4>{totalJobsLabel}</h4>
       {isLoading && <h6 style={{ marginTop: "10px" }}>Loading jobs...</h6>}
-      <ListContainer>
-        {derivedJobList?.map((job) => (
-          <JobCard key={job.id} job={job} />
-        ))}
-      </ListContainer>
+      {isError && !isLoading ? <h6>Something went wrong!!</h6> : jobListUi}
     </>
   );
 };

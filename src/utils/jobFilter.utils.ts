@@ -1,8 +1,8 @@
 import { FilterOptions } from "../constants/filters.constants";
-import { jobDetailsType } from "../models/Jobs.types";
+import { JobDetailsType } from "../models/Jobs.types";
 import { isDateWithinTimeFrame } from "./date.utils";
 
-export const applyJobFilter = (jobsList: null | jobDetailsType[], newFilters: FilterOptions) => {
+export const applyJobFilter = (jobsList: null | JobDetailsType[], newFilters: FilterOptions, searchQueries: string[] = []) => {
     if (jobsList === null) return []
     const filteredJobs = jobsList?.filter((job) => {
         if (newFilters.country) {
@@ -40,6 +40,13 @@ export const applyJobFilter = (jobsList: null | jobDetailsType[], newFilters: Fi
             if (job.jobType !== newFilters.jobType) {
                 return false;
             }
+        }
+
+        if (searchQueries.some((query) => query.length > 0)) {
+            const titleMatch = job.title.includes(searchQueries[0]);
+            const locationMatch = job.location.includes(searchQueries[1]);
+            debugger
+            if (!titleMatch || !locationMatch) { return false }
         }
 
         return true;

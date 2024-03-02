@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoLocationOutline, IoSearchOutline } from "react-icons/io5";
 
 import { InputField } from "./InputField";
@@ -9,10 +9,16 @@ import {
   SearchFieldsContainer,
   Button,
 } from "./Header.styles";
+import { JobFiltersContext } from "../context/JobFilterContext";
 
 export const Header = () => {
+  const { setSearchQueries } = useContext(JobFiltersContext);
   const [jobPosition, setJobPosition] = useState("");
   const [jobLocation, setJobLocation] = useState("");
+
+  function handleSearch() {
+    setSearchQueries([jobPosition, jobLocation]);
+  }
 
   return (
     <Container>
@@ -40,7 +46,7 @@ export const Header = () => {
           value={jobLocation}
           onChange={(e) => setJobLocation(e.target.value)}
         />
-        <Button>Search</Button>
+        <Button onClick={handleSearch}>Search</Button>
       </SearchFieldsContainer>
     </Container>
   );

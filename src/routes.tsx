@@ -3,14 +3,15 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { JobListPage } from "./pages/JobListPage";
 import { UserProfile } from "./pages/UserProfile";
 import { PostJob } from "./pages/PostJob";
-import { SignIn } from "./pages/SignIn";
+import { LoginPage } from "./pages/LoginPage";
+import { PostedJobs } from "./pages/PostedJobs";
 
 export const router = createBrowserRouter([
   // Auth Pages
   {
-    path: "sign-in",
-    id: "sign-in",
-    element: <SignIn />,
+    path: "login",
+    id: "login",
+    element: <LoginPage />,
   },
   // Main Pages
   {
@@ -29,11 +30,18 @@ export const router = createBrowserRouter([
     path: "profile",
     id: "userProfile",
     element: <UserProfile />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "post-job",
     id: "postJob",
     element: <PostJob />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "posted-jobs",
+    id: "postedJob",
+    element: <PostedJobs />,
     errorElement: <ErrorPage />,
   },
 ]);
