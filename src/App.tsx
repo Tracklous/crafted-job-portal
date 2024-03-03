@@ -12,9 +12,10 @@ import { UserProfilePage } from "./pages/UserProfilePage";
 import theme from "./theme";
 import { GlobalStyle } from "./theme/GlobalStyles";
 import { ErrorPage } from "./pages/ErrorPage";
+import { JobsAppliedPage } from "./pages/JobsAppliedPage";
 
 export const App = () => {
-  // Todo create custom hook to provide theme details.
+  // TODO: create custom hook to provide theme details.
   const [currentTheme, _] = useState<"dark" | "light">("light");
   // const routes = useRoutes(router);
 
@@ -35,6 +36,7 @@ export const App = () => {
                 element={<JobListPage />}
                 errorElement={<ErrorPage />}
               />
+              <Route path="/applied-jobs" element={<JobsAppliedPage />} />
               <Route path="profile" element={<UserProfilePage />} />
             </Route>
             {/* catch all */}

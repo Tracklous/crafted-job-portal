@@ -8,7 +8,7 @@ export const JobListPage = () => {
   return (
     <JobFiltersProvider>
       <Header />
-      <Container $FixedHeight="90vh">
+      <Container as="main" $FixedHeight="90vh">
         <Column $spaceRatio={1}>
           <Filters />
         </Column>

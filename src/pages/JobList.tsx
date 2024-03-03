@@ -1,91 +1,13 @@
-import { FC, useContext, useState } from "react";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
-import { LiaCitySolid } from "react-icons/lia";
-import { PiCurrencyDollar } from "react-icons/pi";
+import { useContext } from "react";
 import { PaginationFooter } from "../components/PaginationFooter";
 import { PAGINATION_PAGE_SIZE } from "../constants/App.config";
 import { JobFiltersContext } from "../context/JobFilterContext";
-import { useFetch, useFetchMutation } from "../hooks/useFetch";
+import { useFetch } from "../hooks/useFetch";
 import { usePagination } from "../hooks/usePagination";
 import { JobDetailsType } from "../models/Jobs.types";
-import {
-  AvatarBox,
-  FlexBox,
-  LabelContainer,
-  ListContainer,
-} from "../theme/common.style";
+import { ListContainer } from "../theme/common.style";
 import { applyJobFilter } from "../utils/jobFilter.utils";
-import { getStringInitials } from "../utils/string.manipulation";
-import {
-  ApplyButton,
-  CardDescription,
-  CardSubTitle,
-  CardTitle,
-} from "./JobList.styles";
-import { useAuth } from "../context/AuthContext";
-
-type JobCardProps = {
-  job: JobDetailsType;
-};
-
-const JobCard: FC<JobCardProps> = ({ job }) => {
-  const { user } = useAuth();
-  const [isApplied, setIsApplied] = useState(
-    user?.jobApplied.includes(Number(job.id))
-  );
-  const { mutate: applyForJob, isLoading } = useFetchMutation({
-    url: "/api/apply-job",
-  });
-
-  function handleJobApply() {
-    applyForJob({ jobId: job.id }, () => {
-      setIsApplied(true);
-    });
-  }
-
-  return (
-    <li key={job.id}>
-      <FlexBox $flex="0 0 7%">
-        <AvatarBox>{getStringInitials(job.company)}</AvatarBox>
-      </FlexBox>
-      <FlexBox>
-        <CardTitle>{job.company}</CardTitle>
-        <CardSubTitle>{job.title}</CardSubTitle>
-        <FlexBox $display="flex" $gap={15}>
-          <LabelContainer>
-            <IoLocationOutline />
-            {job.country}
-          </LabelContainer>
-          <LabelContainer>
-            <LiaCitySolid />
-            {job.location}
-          </LabelContainer>
-          <LabelContainer>
-            <AiOutlineClockCircle />
-            {job.jobType}
-          </LabelContainer>
-          <LabelContainer>
-            <PiCurrencyDollar />
-            {job.maxSalary}
-          </LabelContainer>
-          <LabelContainer>
-            <IoCalendarOutline />
-            {job.postedDate}
-          </LabelContainer>
-        </FlexBox>
-        <CardDescription>{job.description}</CardDescription>
-        {isApplied ? (
-          <ApplyButton disabled={isApplied}>Applied</ApplyButton>
-        ) : (
-          <ApplyButton onClick={handleJobApply} disabled={isLoading}>
-            Quick Apply
-          </ApplyButton>
-        )}
-      </FlexBox>
-    </li>
-  );
-};
+import { ListCardView } from "./JobListCardView";
 
 export const JobList = () => {
   const { selectedOption, searchQueries } = useContext(JobFiltersContext);
@@ -110,7 +32,7 @@ export const JobList = () => {
   const jobListUi = hasJobs && (
     <ListContainer>
       {paginatedData?.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <ListCardView key={job.id} job={job} />
       ))}
       <PaginationFooter
         totalPages={filteredJobs.length / PAGINATION_PAGE_SIZE}
