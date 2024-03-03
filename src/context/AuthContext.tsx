@@ -45,11 +45,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     );
 
     if (userSession) {
+      setUser(JSON.parse(userSession));
+      setIsAuthenticated(true);
       navigate(location.pathname.includes("login") ? "/" : location.pathname, {
         replace: true,
       });
-      setUser(JSON.parse(userSession));
-      setIsAuthenticated(true);
     }
   }, []);
 

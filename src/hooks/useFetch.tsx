@@ -76,7 +76,7 @@ export function useFetchMutation<T = any>({
   method = "POST",
   options,
 }: FetchMutationConfig): FetchMutationState<T> {
-  let data: T | null = null;
+  const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<AxiosError<any> | null>(null);
 
@@ -104,7 +104,7 @@ export function useFetchMutation<T = any>({
         default:
           throw new Error(`Unsupported HTTP method: ${method}`);
       }
-      data = response.data;
+      setData(response.data as T);
       if (cb) cb(response.data);
       return response.data;
     } catch (err: any) {

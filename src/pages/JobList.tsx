@@ -9,7 +9,12 @@ import { JobFiltersContext } from "../context/JobFilterContext";
 import { useFetch, useFetchMutation } from "../hooks/useFetch";
 import { usePagination } from "../hooks/usePagination";
 import { JobDetailsType } from "../models/Jobs.types";
-import { AvatarBox, FlexBox, LabelContainer } from "../theme/common.style";
+import {
+  AvatarBox,
+  FlexBox,
+  LabelContainer,
+  ListContainer,
+} from "../theme/common.style";
 import { applyJobFilter } from "../utils/jobFilter.utils";
 import { getStringInitials } from "../utils/string.manipulation";
 import {
@@ -17,7 +22,6 @@ import {
   CardDescription,
   CardSubTitle,
   CardTitle,
-  ListContainer,
 } from "./JobList.styles";
 import { useAuth } from "../context/AuthContext";
 
@@ -30,7 +34,7 @@ const JobCard: FC<JobCardProps> = ({ job }) => {
   const [isApplied, setIsApplied] = useState(
     user?.jobApplied.includes(Number(job.id))
   );
-  const { mutate: applyForJob } = useFetchMutation({
+  const { mutate: applyForJob, isLoading } = useFetchMutation({
     url: "/api/apply-job",
   });
 
@@ -74,7 +78,9 @@ const JobCard: FC<JobCardProps> = ({ job }) => {
         {isApplied ? (
           <ApplyButton disabled={isApplied}>Applied</ApplyButton>
         ) : (
-          <ApplyButton onClick={handleJobApply}>Quick Apply</ApplyButton>
+          <ApplyButton onClick={handleJobApply} disabled={isLoading}>
+            Quick Apply
+          </ApplyButton>
         )}
       </FlexBox>
     </li>

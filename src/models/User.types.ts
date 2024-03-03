@@ -1,5 +1,6 @@
 
 export type UserDetails = null | {
+    name: string;
     role: "freelancer" | "employer";
     email: string;
     github: {

@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
-import { IoLocationOutline, IoLogoGithub } from "react-icons/io5";
+import { useEffect } from "react";
+import { IoLocationOutline } from "react-icons/io5";
 import { LiaCitySolid } from "react-icons/lia";
 import styled from "styled-components";
-import { InputField } from "../components/InputField";
+import { LinkGithubProfile } from "../components/GithubLinking";
 import { useAuth } from "../context/AuthContext";
 import { useFetchMutation } from "../hooks/useFetch";
 import { GITHUB_PROFILE_API_URL } from "../services/endpoints";
@@ -11,6 +11,7 @@ import {
   Container,
   FlexBox,
   LabelContainer,
+  ListContainer,
 } from "../theme/common.style";
 import {
   DefaultIcon,
@@ -21,19 +22,10 @@ import {
   UserDetailsText,
   UserNameText,
 } from "./UserProfile.styles";
-
-const userDetails = {
-  name: "Ankit Khudania",
-  bio: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-  est minima esse illo incidunt maxime. Reiciendis aliquam cupiditate
-  perspiciatis voluptatem autem repellat molestiae, accusantium,
-  maxime vitae voluptate voluptates mollitia sunt!`,
-  userName: "username",
-  location: "Hyderabad",
-  country: "India",
-  isGithubLinked: false,
-  githubUsername: "tracklous",
-};
+import { CardDescription, CardTitle } from "./JobList.styles";
+import { usePagination } from "../hooks/usePagination";
+import { PAGINATION_PAGE_SIZE } from "../constants/App.config";
+import { PaginationFooter } from "../components/PaginationFooter";
 
 const ColumnTitle = styled.h4`
   margin-bottom: ${({ theme }) => theme.spacing.md};
@@ -46,65 +38,66 @@ const SectionTitle = styled.h6`
   margin-bottom: ${({ theme }) => theme.spacing.xs};
 `;
 
-const GithubLinkingLabel = styled.span`
-  font-family: ${({ theme }) => theme.fontFamily};
-  display: inline-block;
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-weight: ${({ theme }) => theme.fontWeight.normal};
-  color: ${({ theme }) => theme.palette.textPrimary};
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const LinkGithubProfile: FC<{ isLinked: boolean }> = ({ isLinked }) => {
-  const { updateCurrentUserTrigger } = useAuth();
-  const [username, setUsername] = useState("");
-  const { mutate: getUserRepos, isLoading } = useFetchMutation({
+const RepoListCard: React.FC<{ username: string }> = ({ username }) => {
+  const {
+    mutate: getUserRepos,
+    isLoading,
+    data,
+  } = useFetchMutation({
     url: GITHUB_PROFILE_API_URL(username),
     method: "GET",
   });
-  const { mutate: persistLinking } = useFetchMutation({
-    url: "api/link-github",
-  });
-  if (isLinked) return null;
+  //Todo : Add types for git data
+  const { paginatedData, currentPage, nextPage, prevPage } = usePagination<any>(
+    data || [],
+    {
+      initialPageSize: PAGINATION_PAGE_SIZE,
+    }
+  );
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setUsername(e.target.value);
-  }
-
-  function handleGithubLinking() {
-    getUserRepos({}, () => {
-      persistLinking({ gitUsername: username }, updateCurrentUserTrigger);
-    });
-  }
+  useEffect(() => {
+    getUserRepos();
+  }, []);
 
   return (
     <>
-      <GithubLinkingLabel>
-        Looks like you haven't linked your GitHub profile yet. Please use the
-        input below to link your profile:
-      </GithubLinkingLabel>
-      <FlexBox $display="flex" $gap={10}>
-        <InputField
-          disabled={isLoading}
-          width="50%"
-          icon={<IoLogoGithub />}
-          type="search"
-          placeholder="Type your GitHub username..."
-          value={username}
-          onChange={handleInputChange}
-        />
-        <button disabled={isLoading} onClick={handleGithubLinking}>
-          {isLoading ? "Linking" : "Link"}
-        </button>
-      </FlexBox>
+      <SectionTitle>Github repositories</SectionTitle>
+      {isLoading && (
+        <h6 style={{ marginTop: "15px" }}>Loading repositories...</h6>
+      )}
+      {!isLoading && (
+        <ListContainer>
+          {/* TODO : Add types for git data */}
+          {paginatedData?.map((repo: any) => {
+            return (
+              <li key={repo.id}>
+                <FlexBox $flex="1">
+                  <CardTitle>{repo.name}</CardTitle>
+                  <CardDescription>{repo.description}</CardDescription>
+                </FlexBox>
+              </li>
+            );
+          })}
+          <PaginationFooter
+            totalPages={paginatedData.length / PAGINATION_PAGE_SIZE}
+            currentPage={currentPage}
+            onNextPage={nextPage}
+            onPrevPage={prevPage}
+          />
+        </ListContainer>
+      )}
     </>
   );
 };
 
 export const UserProfilePage = () => {
-  const { user } = useAuth();
+  const { user, updateCurrentUserTrigger } = useAuth();
   const userImagePath = "";
   const gitUsername = user?.github.username;
+
+  useEffect(() => {
+    updateCurrentUserTrigger();
+  }, []);
 
   return (
     <Container>
@@ -117,25 +110,25 @@ export const UserProfilePage = () => {
           )}
         </ProfilePictureContainer>
 
-        <UserDetailsText>{userDetails.name}</UserDetailsText>
+        <UserDetailsText>{user?.name}</UserDetailsText>
         {gitUsername && <UserNameText>@{gitUsername}</UserNameText>}
-        <UseBioText>{userDetails.bio}</UseBioText>
+        <UseBioText>{user?.bio}</UseBioText>
         <FlexBox $display="flex" $flex="0 0 0%" $gap={15}>
           <LabelContainer>
             <IoLocationOutline />
-            {userDetails.country}
+            {user?.country}
           </LabelContainer>
           <LabelContainer>
             <LiaCitySolid />
-            {userDetails.location}
+            {user?.location}
           </LabelContainer>
         </FlexBox>
       </ExtendedColumn>
       <Column $spaceRatio={3}>
         <ColumnTitle>Profile section</ColumnTitle>
         <LinkGithubProfile isLinked={!!user?.github.isLinked} />
-        {user?.github.isLinked && (
-          <SectionTitle>Github repositories</SectionTitle>
+        {user?.github.isLinked && user.github.username && (
+          <RepoListCard username={user.github.username} />
         )}
       </Column>
     </Container>

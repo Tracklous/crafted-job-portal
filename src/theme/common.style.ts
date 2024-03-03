@@ -77,3 +77,21 @@ export const fadeInAnimation = keyframes`
     opacity: 1;
   }
 `;
+
+export const ListContainer = styled.ul`
+  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
+  flex-wrap: wrap;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+  list-style: none;
+
+  & li {
+    padding: ${({ theme }) => theme.spacing.xs};
+    border: 1px solid ${({ theme }) => theme.palette.bgDefault};
+    flex: 1 0 90%;
+    background-color: ${({ theme }) => theme.palette.commonWhite};
+    display: flex;
+    opacity: 0;
+    animation: ${fadeInAnimation} 200ms ease-in-out forwards;
+  }
+`;

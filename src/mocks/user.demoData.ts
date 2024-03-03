@@ -26,6 +26,7 @@ const github = {
 
 export const dummyUserDetails = {
     "ankit": {
+        name: "Ankit",
         role: 'freelancer',
         email: 'ankit@abc.com',
         jobApplied: [],
@@ -34,6 +35,7 @@ export const dummyUserDetails = {
         ...dummyBio,
     },
     "ankit@abc.com": {
+        name: "Ankit",
         role: 'freelancer',
         email: 'ankit@abc.com',
         jobApplied: [],
@@ -43,6 +45,7 @@ export const dummyUserDetails = {
 
     },
     "amit": {
+        name: "Amit",
         role: "employer",
         email: "amit@abc.com",
         jobApplied: [],
@@ -51,6 +54,7 @@ export const dummyUserDetails = {
         ...dummyBio
     },
     "amit@abc.com": {
+        name: "Amit",
         role: "employer",
         email: "amit@abc.com",
         jobApplied: [],
@@ -59,6 +63,7 @@ export const dummyUserDetails = {
         ...dummyBio
     },
     "ria": {
+        name: "Ria",
         role: 'freelancer',
         email: 'ria@abc.com',
         jobApplied: [],
@@ -67,6 +72,7 @@ export const dummyUserDetails = {
         ...dummyBio
     },
     "ria@abc.com": {
+        name: "Ria",
         role: 'freelancer',
         email: 'ria@abc.com',
         jobApplied: [],
@@ -75,6 +81,7 @@ export const dummyUserDetails = {
         ...dummyBio
     },
     "kirti": {
+        name: "Kirti",
         role: "employer",
         email: "kirti@abc.com",
         jobApplied: [],
@@ -83,6 +90,7 @@ export const dummyUserDetails = {
         ...dummyBio
     },
     "kirti@abc.com": {
+        name: "Kirti",
         role: "employer",
         email: "kirti@abc.com",
         jobApplied: [],
