@@ -18,7 +18,8 @@ import {
 } from "../constants/postJob.constants";
 import axios from "axios";
 import { JobDetailsType } from "../models/Jobs.types";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
+const nanoid = customAlphabet("0123456789", 6);
 
 export const PostJobPage = () => {
   const [jobFormFields, setJobFormFelids] = useState(POST_A_JOB_FIELDS);
@@ -53,7 +54,7 @@ export const PostJobPage = () => {
 
     if (isValid) {
       const prepareParams = {
-        id: nanoid(),
+        id: Number(nanoid()),
         title: jobFormFields.title,
         jobType: jobFormFields.jobType[0].value,
         salaryType: jobFormFields.salaryType[0].value,

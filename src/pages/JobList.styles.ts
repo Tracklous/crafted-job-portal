@@ -15,6 +15,9 @@ export const CardSubTitle = styled.p`
 `;
 
 export const CardDescription = styled.p`
+  max-height: 200px;
+  overflow: scroll;
+  line-break: anywhere;
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.palette.textPrimary};
   color: ${({ theme }) =>

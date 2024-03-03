@@ -13,6 +13,8 @@ import theme from "./theme";
 import { GlobalStyle } from "./theme/GlobalStyles";
 import { ErrorPage } from "./pages/ErrorPage";
 import { JobsAppliedPage } from "./pages/JobsAppliedPage";
+import { PostJobPage } from "./pages/PostJobPage";
+import { PostedJobsPage } from "./pages/PostedJobsPage";
 
 export const App = () => {
   // TODO: create custom hook to provide theme details.
@@ -38,6 +40,8 @@ export const App = () => {
               />
               <Route path="/applied-jobs" element={<JobsAppliedPage />} />
               <Route path="profile" element={<UserProfilePage />} />
+              <Route path="/post-job" element={<PostJobPage />} />
+              <Route path="/posted-jobs" element={<PostedJobsPage />} />
             </Route>
             {/* catch all */}
             {/* <Route path="*" element={<Missing />} /> */}
