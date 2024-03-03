@@ -20,7 +20,7 @@ import axios from "axios";
 import { JobDetailsType } from "../models/Jobs.types";
 import { nanoid } from "nanoid";
 
-export const PostJob = () => {
+export const PostJobPage = () => {
   const [jobFormFields, setJobFormFelids] = useState(POST_A_JOB_FIELDS);
   const [validationErrors, setValidationErrors] = useState<
     Partial<{ [key in PostAJobFieldsKeys]: string }>[]

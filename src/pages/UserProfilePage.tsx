@@ -1,11 +1,17 @@
+import { FC, useState } from "react";
+import { IoLocationOutline, IoLogoGithub } from "react-icons/io5";
+import { LiaCitySolid } from "react-icons/lia";
+import styled from "styled-components";
+import { InputField } from "../components/InputField";
+import { useAuth } from "../context/AuthContext";
+import { useFetchMutation } from "../hooks/useFetch";
+import { GITHUB_PROFILE_API_URL } from "../services/endpoints";
 import {
   Column,
   Container,
   FlexBox,
   LabelContainer,
 } from "../theme/common.style";
-import { IoLocationOutline, IoLogoGithub } from "react-icons/io5";
-import { LiaCitySolid } from "react-icons/lia";
 import {
   DefaultIcon,
   ExtendedColumn,
@@ -15,9 +21,6 @@ import {
   UserDetailsText,
   UserNameText,
 } from "./UserProfile.styles";
-import styled from "styled-components";
-import { InputField } from "../components/InputField";
-import { FC, useState } from "react";
 
 const userDetails = {
   name: "Ankit Khudania",
@@ -53,11 +56,25 @@ const GithubLinkingLabel = styled.span`
 `;
 
 const LinkGithubProfile: FC<{ isLinked: boolean }> = ({ isLinked }) => {
+  const { updateCurrentUserTrigger } = useAuth();
+  const [username, setUsername] = useState("");
+  const { mutate: getUserRepos, isLoading } = useFetchMutation({
+    url: GITHUB_PROFILE_API_URL(username),
+    method: "GET",
+  });
+  const { mutate: persistLinking } = useFetchMutation({
+    url: "api/link-github",
+  });
   if (isLinked) return null;
 
-  const [username, setUsername] = useState("");
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
+  }
+
+  function handleGithubLinking() {
+    getUserRepos({}, () => {
+      persistLinking({ gitUsername: username }, updateCurrentUserTrigger);
+    });
   }
 
   return (
@@ -66,8 +83,9 @@ const LinkGithubProfile: FC<{ isLinked: boolean }> = ({ isLinked }) => {
         Looks like you haven't linked your GitHub profile yet. Please use the
         input below to link your profile:
       </GithubLinkingLabel>
-      <div>
+      <FlexBox $display="flex" $gap={10}>
         <InputField
+          disabled={isLoading}
           width="50%"
           icon={<IoLogoGithub />}
           type="search"
@@ -75,13 +93,18 @@ const LinkGithubProfile: FC<{ isLinked: boolean }> = ({ isLinked }) => {
           value={username}
           onChange={handleInputChange}
         />
-      </div>
+        <button disabled={isLoading} onClick={handleGithubLinking}>
+          {isLoading ? "Linking" : "Link"}
+        </button>
+      </FlexBox>
     </>
   );
 };
 
-export const UserProfile = () => {
+export const UserProfilePage = () => {
+  const { user } = useAuth();
   const userImagePath = "";
+  const gitUsername = user?.github.username;
 
   return (
     <Container>
@@ -95,7 +118,7 @@ export const UserProfile = () => {
         </ProfilePictureContainer>
 
         <UserDetailsText>{userDetails.name}</UserDetailsText>
-        <UserNameText>@{userDetails.userName}</UserNameText>
+        {gitUsername && <UserNameText>@{gitUsername}</UserNameText>}
         <UseBioText>{userDetails.bio}</UseBioText>
         <FlexBox $display="flex" $flex="0 0 0%" $gap={15}>
           <LabelContainer>
@@ -110,8 +133,8 @@ export const UserProfile = () => {
       </ExtendedColumn>
       <Column $spaceRatio={3}>
         <ColumnTitle>Profile section</ColumnTitle>
-        <LinkGithubProfile isLinked={userDetails.isGithubLinked} />
-        {userDetails.isGithubLinked && (
+        <LinkGithubProfile isLinked={!!user?.github.isLinked} />
+        {user?.github.isLinked && (
           <SectionTitle>Github repositories</SectionTitle>
         )}
       </Column>

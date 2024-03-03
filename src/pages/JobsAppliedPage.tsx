@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import { Container, FlexBox } from "../theme/common.style";
 
-const PostContent = styled(FlexBox)`
+const Content = styled(FlexBox)`
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.xl}`};
 `;
 
-export const PostedJobs = () => {
+export const JobsAppliedPage = () => {
   return (
     <Container as="main">
-      <PostContent>
-        <h3>Your job posted job: </h3>
-        
-      </PostContent>
+      <Content>
+        <h3>Your applied jobs </h3>
+      </Content>
     </Container>
   );
 };

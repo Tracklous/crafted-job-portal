@@ -25,6 +25,7 @@ export type InputProps = {
   error?: string;
   width?: string | null;
   label?: string | null;
+  disabled?: boolean;
 };
 
 export const InputField = ({
@@ -38,6 +39,7 @@ export const InputField = ({
   onTextAreaChange,
   name,
   error,
+  disabled = false,
   width = null,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,6 +74,7 @@ export const InputField = ({
             onChange={onChange}
             name={name}
             $error={Boolean(error)}
+            disabled={disabled}
           />
         )}
         {type === "description" && (

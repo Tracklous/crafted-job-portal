@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { LOGGED_USER_PATH_SESSION_STORAGE } from "../constants/App.config";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserDetails } from "../models/User.types";
 
 // Define the shape of your authentication context
@@ -16,6 +16,7 @@ interface AuthContextType {
   user: UserDetails | null;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   logout: () => void;
+  updateCurrentUserTrigger: () => void;
 }
 
 // Create the authentication context
@@ -32,22 +33,33 @@ export const useAuth = () => {
 
 // AuthProvider component to wrap your application with
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const navigate = useNavigate();
   const [user, setUser] = useState<UserDetails | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const location = useLocation();
+  const navigate = useNavigate();
   console.log("AuthProvider", { isAuthenticated, user });
-  
+
   useEffect(() => {
     const userSession = sessionStorage.getItem(
       LOGGED_USER_PATH_SESSION_STORAGE
     );
 
     if (userSession) {
-      navigate("/");
+      navigate(location.pathname.includes("login") ? "/" : location.pathname, {
+        replace: true,
+      });
       setUser(JSON.parse(userSession));
       setIsAuthenticated(true);
     }
   }, []);
+
+  function updateCurrentUserTrigger() {
+    const updatedUserData = JSON.parse(
+      sessionStorage.getItem(LOGGED_USER_PATH_SESSION_STORAGE) || "null"
+    ) as UserDetails;
+
+    setUser(updatedUserData);
+  }
 
   const logout = () => {
     // Implement your logout logic here
@@ -55,11 +67,18 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     sessionStorage.setItem(LOGGED_USER_PATH_SESSION_STORAGE, "");
     setUser(null);
     setIsAuthenticated(false);
+    navigate("login");
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, logout, isAuthenticated, setIsAuthenticated }}
+      value={{
+        user,
+        logout,
+        isAuthenticated,
+        setIsAuthenticated,
+        updateCurrentUserTrigger,
+      }}
     >
       {children}
     </AuthContext.Provider>

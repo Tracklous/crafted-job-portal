@@ -54,8 +54,15 @@ const NavLinks = () => {
       <li>
         <Link to="/">Jobs List</Link>
       </li>
+      <Link to="/applied-jobs">Applied Jobs</Link>
       <li>
-        <Link to="/profile">Applied Jobs</Link>
+        <Link to="/profile">Profile</Link>
+      </li>
+      <li>
+        <Link to="/post-job">Post Jobs</Link>
+      </li>
+      <li>
+        <Link to="/posted-jobs">Posted Jobs</Link>
       </li>
     </NavLinksContainer>
   );

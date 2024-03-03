@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from "axios";
 
 type ReadHttpMethod = "GET";
-type WriteHttpMethods = "POST" | "PUT" | "PATCH" | "DELETE";
+type WriteHttpMethods = ReadHttpMethod | "POST" | "PUT" | "PATCH" | "DELETE";
 
 type FetchState<T> = {
   data: T | null;
@@ -86,6 +86,9 @@ export function useFetchMutation<T = any>({
     try {
       let response: AxiosResponse<T>;
       switch (method) {
+        case "GET":
+          response = await axios.get(url, options);
+          break;
         case "POST":
           response = await axios.post(url, requestBody, options);
           break;

@@ -14,6 +14,7 @@ if (dummyUsers == null) {
 };
 
 export const handlers = [
+    // Mock /api/login POST request
     http.post('/api/login', async ({ request }) => {
         await delay(2000);
         // Read the intercepted request body as JSON.
@@ -31,6 +32,31 @@ export const handlers = [
             // Simulate failed login
             return HttpResponse.error();
         };
+    }),
+    // Mock /api/link-github POST request
+    http.post('/api/link-github', async ({ request }) => {
+        await delay(2000);
+        // Read the intercepted request body as JSON.
+        const { gitUsername } = await request.json() as { gitUsername: string };
+
+        const github = {
+            isLinked: true,
+            username: gitUsername
+        };
+        let storedUsers = JSON.parse(localStorage.getItem(USER_PATH_LOCAL_STORAGE) || '');
+        let currentSession = JSON.parse(sessionStorage.getItem(LOGGED_USER_PATH_SESSION_STORAGE) || '') as UserDetails;
+
+        if (storedUsers && currentSession) {
+            storedUsers[currentSession.email].github = github
+            currentSession.github = github;
+
+            localStorage.setItem(USER_PATH_LOCAL_STORAGE, JSON.stringify(storedUsers));
+            sessionStorage.setItem(LOGGED_USER_PATH_SESSION_STORAGE, JSON.stringify(currentSession));
+        };
+
+        return HttpResponse.json({
+            message: 'Github linked successfully.',
+        }, { status: 200 });
     }),
     // Mock /api/jobs GET request
     http.get('/api/jobs', async () => {
@@ -68,7 +94,7 @@ export const handlers = [
         }
         return HttpResponse.error();
     }),
-    //  Mock /api/post-job GET request
+    //  Mock /api/post-job POST request
     http.post('/api/post-job', async ({ request }) => {
         await delay(1000);
         // Read the intercepted request body as JSON.

@@ -1,18 +1,11 @@
-import React, { PropsWithChildren, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-interface PrivateRouteProps extends PropsWithChildren {}
-
-export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+export const PrivateRoute = () => {
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const location = useLocation();
 
-  console.log(">>> isAuthenticated Guard", isAuthenticated);
-
-  useEffect(() => {
-    if (!isAuthenticated) navigate("/login");
-  }, [isAuthenticated]);
-
-  return children;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  } else return <Outlet />;
 };

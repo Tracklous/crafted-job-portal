@@ -1,7 +1,14 @@
 
 export type UserDetails = null | {
-    role: string;
+    role: "freelancer" | "employer";
     email: string;
+    github: {
+        isLinked: boolean;
+        username?: string;
+    };
+    bio: string;
+    location: string;
+    country: string;
     jobApplied: number[];
     jobsPosted: number[];
 };
