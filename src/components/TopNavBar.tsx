@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Stack } from "../theme/common.style";
 import { CustomButton } from "./CustomButton";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const NavBar = styled.nav`
   height: 55px;
@@ -34,6 +35,32 @@ const ButtonGroup = styled.div`
   gap: ${({ theme }) => theme.spacing.xs};
 `;
 
+const NavLinksContainer = styled.ul`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.xs};
+  list-style: none;
+  text-decoration: none;
+  margin-right: 4rem;
+`;
+
+const NavLinks = () => {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return null;
+
+  return (
+    <NavLinksContainer>
+      <li>
+        <Link to="/">Jobs List</Link>
+      </li>
+      <li>
+        <Link to="/profile">Applied Jobs</Link>
+      </li>
+    </NavLinksContainer>
+  );
+};
+
 export const TopNavBar = () => {
   const { isAuthenticated, logout } = useAuth();
   return (
@@ -42,15 +69,9 @@ export const TopNavBar = () => {
         <LogoIcon size="2.5rem" />
         <Logo>Job Portal</Logo>
       </Stack>
+      <NavLinks />
       <ButtonGroup>
-        {isAuthenticated ? (
-          <CustomButton label="Logout" onClick={logout} />
-        ) : (
-          <CustomButton
-            label="Login"
-            onClick={() => console.log("Login in clicked!!")}
-          />
-        )}
+        {isAuthenticated && <CustomButton label="Logout" onClick={logout} />}
       </ButtonGroup>
     </NavBar>
   );

@@ -42,7 +42,7 @@ export const Header = () => {
           name="location-job"
           icon={<IoLocationOutline />}
           type="text"
-          placeholder="Location"
+          placeholder="City"
           value={jobLocation}
           onChange={(e) => setJobLocation(e.target.value)}
         />

@@ -13,13 +13,13 @@ const PaginationContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 20px; */
   position: sticky;
   bottom: 0;
   background-color: ${({ theme }) => theme.palette.commonWhite};
 `;
 
 const PageButton = styled.button<{ $disabled: boolean }>`
+  font-family: ${({ theme }) => theme.fontFamily};
   padding: 8px 16px;
   border: 1px solid #ccc;
   border-radius: 4px;

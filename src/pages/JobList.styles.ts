@@ -40,3 +40,12 @@ export const CardDescription = styled.p`
     colord(theme.palette.textSecondary).alpha(0.85).toRgbString()};
   font-weight: 500;
 `;
+
+export const ApplyButton = styled.button`
+ margin-top: ${({ theme }) => theme.spacing.xxs};
+ font-size: ${({ theme }) => theme.fontSize.xs};
+ padding: ${({ theme }) => theme.spacing.xxs};
+ padding-left: 0;
+ background-color: ${({ theme }) => theme.palette.commonWhite};
+ color: ${({ theme }) => theme.palette.secondary};
+`

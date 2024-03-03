@@ -43,9 +43,8 @@ export const applyJobFilter = (jobsList: null | JobDetailsType[], newFilters: Fi
         }
 
         if (searchQueries.some((query) => query.length > 0)) {
-            const titleMatch = job.title.includes(searchQueries[0]);
-            const locationMatch = job.location.includes(searchQueries[1]);
-            debugger
+            const titleMatch = job.title.toLowerCase().includes(searchQueries[0].toLowerCase());
+            const locationMatch = job.location.toLowerCase().includes(searchQueries[1].toLowerCase());
             if (!titleMatch || !locationMatch) { return false }
         }
 
