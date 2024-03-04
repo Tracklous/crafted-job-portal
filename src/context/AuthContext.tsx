@@ -1,9 +1,11 @@
 import {
   FC,
+  MutableRefObject,
   PropsWithChildren,
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { LOGGED_USER_PATH_SESSION_STORAGE } from "../constants/App.config";
@@ -15,7 +17,9 @@ interface AuthContextType {
   isAuthenticated: boolean;
   user: UserDetails | null;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  login: () => void;
   logout: () => void;
+  appRootRoute: MutableRefObject<string>;
   updateCurrentUserTrigger: () => void;
 }
 
@@ -33,10 +37,11 @@ export const useAuth = () => {
 
 // AuthProvider component to wrap your application with
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
+  const appRootRoute = useRef<string>("");
   const [user, setUser] = useState<UserDetails | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
   console.log("AuthProvider", { isAuthenticated, user });
 
   useEffect(() => {
@@ -47,7 +52,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     if (userSession) {
       setUser(JSON.parse(userSession));
       setIsAuthenticated(true);
-      navigate(location.pathname.includes("login") ? "/" : location.pathname, {
+      navigate(location.pathname, {
         replace: true,
       });
     }
@@ -61,9 +66,13 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     setUser(updatedUserData);
   }
 
+  const login = () => {
+    setIsAuthenticated(true);
+    updateCurrentUserTrigger();
+    navigate("/");
+  };
+
   const logout = () => {
-    // Implement your logout logic here
-    // For demonstration purposes, let's just clear the user
     sessionStorage.setItem(LOGGED_USER_PATH_SESSION_STORAGE, "");
     setUser(null);
     setIsAuthenticated(false);
@@ -74,7 +83,9 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        login,
         logout,
+        appRootRoute,
         isAuthenticated,
         setIsAuthenticated,
         updateCurrentUserTrigger,

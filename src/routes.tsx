@@ -1,4 +1,4 @@
-import { PrivateRoute } from "./components/AuthGuard";
+import { PrivateRoute, PublicRoute } from "./components/AuthGuard";
 import { ErrorPage } from "./pages/ErrorPage";
 import { MainPage } from "./pages/HomePage";
 import { JobListPage } from "./pages/JobListPage";
@@ -9,16 +9,18 @@ import { PostedJobsPage } from "./pages/PostedJobsPage";
 import { UserProfilePage } from "./pages/UserProfilePage";
 
 export const router = [
-  // Auth Pages
   {
     path: "/login",
     id: "login",
-    element: <LoginPage />,
+    element: (
+      <PublicRoute>
+        <LoginPage />,
+      </PublicRoute>
+    ),
   },
-  // Main Pages
   {
-    path: "/",
-    id: "root",
+    path: "jobs",
+    id: "jobs-root",
     element: (
       <PrivateRoute>
         <MainPage />
@@ -27,35 +29,53 @@ export const router = [
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "",
         id: "JobListPage",
         element: <JobListPage />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/applied-jobs",
+        path: "applied-jobs",
         id: "postedJob",
         element: <JobsAppliedPage />,
         errorElement: <ErrorPage />,
       },
+    ],
+  },
+  {
+    path: "hire",
+    id: "hire-root",
+    element: (
+      <PrivateRoute>
+        <MainPage />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
       {
-        path: "/profile",
-        id: "userProfile",
-        element: <UserProfilePage />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/post-job",
+        path: "",
         id: "postJob",
         element: <PostJobPage />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/posted-jobs",
+        path: "posted-jobs",
         id: "postedJob",
         element: <PostedJobsPage />,
         errorElement: <ErrorPage />,
       },
     ],
+  },
+  {
+    path: "profile",
+    id: "userProfile",
+    element: <UserProfilePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/",
+    id: "fallback",
+    element: <PrivateRoute />,
+    errorElement: <ErrorPage />,
   },
 ];

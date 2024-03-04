@@ -1,10 +1,9 @@
-import { Column, Container } from "../theme/common.style";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { InputField } from "../components/InputField";
-import React, { useState } from "react";
-import { useFetchMutation } from "../hooks/useFetch";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useFetchMutation } from "../hooks/useFetch";
+import { Column, Container } from "../theme/common.style";
 
 const CenteredBox = styled(Column)`
   background-color: ${({ theme }) => theme.palette.decentSecondary};
@@ -31,18 +30,14 @@ const SubmitButton = styled.button`
 `;
 
 export const LoginPage = () => {
-  const navigate = useNavigate();
   const { mutate: doLogin } = useFetchMutation({ url: "/api/login" });
-  const { setIsAuthenticated } = useAuth();
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    doLogin({ username, password }, () => {
-      setIsAuthenticated(true);
-      navigate("/");
-    });
+    doLogin({ username, password }, () => login());
   };
 
   return (

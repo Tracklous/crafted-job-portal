@@ -4,6 +4,7 @@ import { Stack } from "../theme/common.style";
 import { CustomButton } from "./CustomButton";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { getNavLinks } from "../constants/App.config";
 
 const NavBar = styled.nav`
   height: 55px;
@@ -46,24 +47,17 @@ const NavLinksContainer = styled.ul`
 `;
 
 const NavLinks = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   if (!isAuthenticated) return null;
+  const navLins = getNavLinks(user?.role);
 
   return (
     <NavLinksContainer>
-      <li>
-        <Link to="/">Jobs List</Link>
-      </li>
-      <Link to="/applied-jobs">Applied Jobs</Link>
-      <li>
-        <Link to="/profile">Profile</Link>
-      </li>
-      <li>
-        <Link to="/post-job">Post Jobs</Link>
-      </li>
-      <li>
-        <Link to="/posted-jobs">Posted Jobs</Link>
-      </li>
+      {navLins.map(({ label, path }) => (
+        <li key={path}>
+          <Link to={path}>{label}</Link>
+        </li>
+      ))}
     </NavLinksContainer>
   );
 };
