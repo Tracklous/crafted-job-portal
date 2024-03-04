@@ -33,7 +33,7 @@ export const Header = () => {
         <InputField
           name="position-job"
           icon={<IoSearchOutline />}
-          type="text"
+          type="search"
           placeholder="what position your are looking for?"
           value={jobPosition}
           onChange={(e) => setJobPosition(e.target.value)}
@@ -41,7 +41,7 @@ export const Header = () => {
         <InputField
           name="location-job"
           icon={<IoLocationOutline />}
-          type="text"
+          type="search"
           placeholder="City"
           value={jobLocation}
           onChange={(e) => setJobLocation(e.target.value)}

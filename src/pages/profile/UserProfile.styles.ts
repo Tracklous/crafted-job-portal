@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Column } from "../theme/common.style";
+import { Column } from "../../theme/common.style";
 import { colord } from "colord";
 import { IoPersonOutline } from "react-icons/io5";
 

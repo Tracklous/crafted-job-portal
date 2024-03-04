@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { LiaCitySolid } from "react-icons/lia";
 import styled from "styled-components";
-import { LinkGithubProfile } from "../components/GithubLinking";
-import { useAuth } from "../context/AuthContext";
-import { useFetchMutation } from "../hooks/useFetch";
-import { GITHUB_PROFILE_API_URL } from "../services/endpoints";
+import { LinkGithubProfile } from "../../components/GithubLinking";
+import { useAuth } from "../../context/AuthContext";
+import { useFetchMutation } from "../../hooks/useFetch";
+import { GITHUB_PROFILE_API_URL } from "../../services/endpoints";
 import {
   Column,
   Container,
   FlexBox,
   LabelContainer,
   ListContainer,
-} from "../theme/common.style";
+} from "../../theme/common.style";
 import {
   DefaultIcon,
   ExtendedColumn,
@@ -22,10 +22,10 @@ import {
   UserDetailsText,
   UserNameText,
 } from "./UserProfile.styles";
-import { CardDescription, CardTitle } from "./JobList.styles";
-import { usePagination } from "../hooks/usePagination";
-import { PAGINATION_PAGE_SIZE } from "../constants/App.config";
-import { PaginationFooter } from "../components/PaginationFooter";
+import { CardDescription, CardTitle } from "../jobs/JobList.styles";
+import { usePagination } from "../../hooks/usePagination";
+import { PAGINATION_PAGE_SIZE } from "../../constants/App.config";
+import { PaginationFooter } from "../../components/PaginationFooter";
 
 const ColumnTitle = styled.h4`
   margin-bottom: ${({ theme }) => theme.spacing.md};

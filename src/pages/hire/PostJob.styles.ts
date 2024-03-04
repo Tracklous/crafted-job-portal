@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { InputField } from "../components/InputField";
-import { FlexBox } from "../theme/common.style";
+import { InputField } from "../../components/InputField";
+import { FlexBox } from "../../theme/common.style";
 
 export const CustomInputField = styled(InputField)`
   .input-field & {

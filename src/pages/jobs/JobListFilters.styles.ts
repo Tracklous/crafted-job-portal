@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexBox, fadeInAnimation } from "../theme/common.style";
+import { FlexBox, fadeInAnimation } from "../../theme/common.style";
 
 export const FieldLabel = styled.h5`
   font-family: ${({ theme }) => theme.fontFamily};

@@ -8,18 +8,18 @@ import {
   JOB_TYPE,
   filterDefaultState,
   FilterOptions,
-} from "../constants/filters.constants";
+} from "../../constants/filters.constants";
 import {
   RadioButtonGroup,
   SquareButtonGroup,
-} from "../components/RadioButtonGroup";
-import { FlexBox } from "../theme/common.style";
+} from "../../components/RadioButtonGroup";
+import { FlexBox } from "../../theme/common.style";
 import {
   ExtendedFlexBox,
   FieldLabel,
   FilterGroupWrapper,
 } from "./JobListFilters.styles";
-import { JobFiltersContext } from "../context/JobFilterContext";
+import { JobFiltersContext } from "../../context/JobFilterContext";
 
 export const Filters = () => {
   const { selectedOption, isFilterEmpty, setSelectedOption } =

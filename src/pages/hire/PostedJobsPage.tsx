@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, FlexBox } from "../theme/common.style";
+import { Container, FlexBox } from "../../theme/common.style";
 
 const PostContent = styled(FlexBox)`
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.xl}`};

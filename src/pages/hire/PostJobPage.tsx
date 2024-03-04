@@ -1,23 +1,23 @@
 import { useState } from "react";
-import { Container } from "../theme/common.style";
+import { Container } from "../../theme/common.style";
 import { FormGrid, GridItem, CustomInputField } from "./PostJob.styles";
 import {
   DropdownOptionType,
   DropdownSelect,
-} from "../components/DropdownSelect";
+} from "../../components/DropdownSelect";
 import {
   JOB_TYPE,
   SALARY_TYPE,
   SKILLS_SET,
   WORK_EXPERIENCE,
-} from "../constants/filters.constants";
-import { getErrorMsg, validateJobPostFormData } from "../utils/form.validation";
+} from "../../constants/filters.constants";
+import { getErrorMsg, validateJobPostFormData } from "../../utils/form.validation";
 import {
   POST_A_JOB_FIELDS,
   PostAJobFieldsKeys,
-} from "../constants/postJob.constants";
+} from "../../constants/postJob.constants";
 import axios from "axios";
-import { JobDetailsType } from "../models/Jobs.types";
+import { JobDetailsType } from "../../models/Jobs.types";
 import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("0123456789", 6);
 

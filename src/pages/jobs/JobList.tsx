@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { PaginationFooter } from "../components/PaginationFooter";
-import { PAGINATION_PAGE_SIZE } from "../constants/App.config";
-import { JobFiltersContext } from "../context/JobFilterContext";
-import { useFetch } from "../hooks/useFetch";
-import { usePagination } from "../hooks/usePagination";
-import { JobDetailsType } from "../models/Jobs.types";
-import { ListContainer } from "../theme/common.style";
-import { applyJobFilter } from "../utils/jobFilter.utils";
+import { PaginationFooter } from "../../components/PaginationFooter";
+import { PAGINATION_PAGE_SIZE } from "../../constants/App.config";
+import { JobFiltersContext } from "../../context/JobFilterContext";
+import { useFetch } from "../../hooks/useFetch";
+import { usePagination } from "../../hooks/usePagination";
+import { JobDetailsType } from "../../models/Jobs.types";
+import { ListContainer } from "../../theme/common.style";
+import { applyJobFilter } from "../../utils/jobFilter.utils";
 import { ListCardView } from "./JobListCardView";
 
 export const JobList = () => {

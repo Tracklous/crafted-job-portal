@@ -3,11 +3,11 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
 import { LiaCitySolid } from "react-icons/lia";
 import { PiCurrencyDollar } from "react-icons/pi";
-import { useAuth } from "../context/AuthContext";
-import { useFetchMutation } from "../hooks/useFetch";
-import { JobDetailsType } from "../models/Jobs.types";
-import { AvatarBox, FlexBox, LabelContainer } from "../theme/common.style";
-import { getStringInitials } from "../utils/string.manipulation";
+import { useAuth } from "../../context/AuthContext";
+import { useFetchMutation } from "../../hooks/useFetch";
+import { JobDetailsType } from "../../models/Jobs.types";
+import { AvatarBox, FlexBox, LabelContainer } from "../../theme/common.style";
+import { getStringInitials } from "../../utils/string.manipulation";
 import {
   ApplyButton,
   CardDescription,

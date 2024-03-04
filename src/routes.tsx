@@ -1,12 +1,12 @@
+import { Outlet } from "react-router-dom";
 import { PrivateRoute, PublicRoute } from "./components/AuthGuard";
 import { ErrorPage } from "./pages/ErrorPage";
-import { MainPage } from "./pages/HomePage";
-import { JobListPage } from "./pages/JobListPage";
-import { JobsAppliedPage } from "./pages/JobsAppliedPage";
-import { LoginPage } from "./pages/LoginPage";
-import { PostJobPage } from "./pages/PostJobPage";
-import { PostedJobsPage } from "./pages/PostedJobsPage";
-import { UserProfilePage } from "./pages/UserProfilePage";
+import { JobListPage } from "./pages/jobs/JobListPage";
+import { JobsAppliedPage } from "./pages/jobs/JobsAppliedPage";
+import { LoginPage } from "./pages/auth/LoginPage";
+import { PostJobPage } from "./pages/hire/PostJobPage";
+import { PostedJobsPage } from "./pages/hire/PostedJobsPage";
+import { UserProfilePage } from "./pages/profile/UserProfilePage";
 
 export const router = [
   {
@@ -23,7 +23,7 @@ export const router = [
     id: "jobs-root",
     element: (
       <PrivateRoute>
-        <MainPage />
+        <Outlet />
       </PrivateRoute>
     ),
     errorElement: <ErrorPage />,
@@ -47,7 +47,7 @@ export const router = [
     id: "hire-root",
     element: (
       <PrivateRoute>
-        <MainPage />
+        <Outlet />
       </PrivateRoute>
     ),
     errorElement: <ErrorPage />,

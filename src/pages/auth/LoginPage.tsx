@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { InputField } from "../components/InputField";
-import { useAuth } from "../context/AuthContext";
-import { useFetchMutation } from "../hooks/useFetch";
-import { Column, Container } from "../theme/common.style";
+import { InputField } from "../../components/InputField";
+import { useAuth } from "../../context/AuthContext";
+import { useFetchMutation } from "../../hooks/useFetch";
+import { Column, Container } from "../../theme/common.style";
 
 const CenteredBox = styled(Column)`
   background-color: ${({ theme }) => theme.palette.decentSecondary};

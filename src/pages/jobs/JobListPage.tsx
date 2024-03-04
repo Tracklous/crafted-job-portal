@@ -1,6 +1,6 @@
-import { Header } from "../components/Header";
-import { JobFiltersProvider } from "../context/JobFilterContext";
-import { Column, Container } from "../theme/common.style";
+import { Header } from "../../components/Header";
+import { JobFiltersProvider } from "../../context/JobFilterContext";
+import { Column, Container } from "../../theme/common.style";
 import { JobList } from "./JobList";
 import Filters from "./JobListFilters";
 
