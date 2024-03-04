@@ -10,7 +10,7 @@ import { UserProfilePage } from "./pages/UserProfilePage";
 
 export const router = [
   {
-    path: "/login",
+    path: "login",
     id: "login",
     element: (
       <PublicRoute>
