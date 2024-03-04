@@ -69,7 +69,11 @@ export const router = [
   {
     path: "profile",
     id: "userProfile",
-    element: <UserProfilePage />,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
