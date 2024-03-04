@@ -3,14 +3,15 @@ import { colord } from "colord";
 export const darktheme = {
     commonWhite: '#fcfffb',
     commonBlack: 'black',
+    // '#fcfffb',
     // Primary colors
     primary: "#182a4a",
     secondary: "#1e5e9e",
+    decentSecondary: colord("#1e5e9e").alpha(0.5).toRgbString(),
+    fadedSecondary: colord("#1e5e9e").alpha(0.1).toRgbString(),
     // Text colors
     textPrimary: "#2d262a",
     textSecondary: "#616161",
-    decentSecondary: colord("#1e5e9e").alpha(0.5).toRgbString(),
-    fadedSecondary: colord("#616161").alpha(0.1).toRgbString(),
     textDisabled: '#eae8e9',
     divider: 'rgba(0,0,0,0.12)',
     border: "#e0e0e0",
