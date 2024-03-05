@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
+    color: black;
     background-color: #242424;
 
     font-synthesis: none;
@@ -31,11 +31,13 @@ export const GlobalStyle = createGlobalStyle`
   };
 
   h1, h2, h3, h4, h5, h6 {
+    color: black;
     margin: 0;
     font-family: "Montserrat", "Roboto", sans-serif;
   };
 
   p {
+    color: black;
     margin: 0;
     font-family: "Montserrat", "Roboto", sans-serif;
   }

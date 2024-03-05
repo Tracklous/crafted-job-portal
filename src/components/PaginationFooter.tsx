@@ -33,6 +33,7 @@ const PageButton = styled.button<{ $disabled: boolean }>`
 `;
 
 const PaginationText = styled.div`
+  color: ${({ theme }) => theme.palette.commonBlack};
   margin: 0 10px;
 `;
 

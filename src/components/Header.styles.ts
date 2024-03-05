@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
+background-color: ${({ theme }) => theme.palette.bgPaper};
   padding: ${({ theme }) => `${theme.spacing.lg} ${theme.spacing.xxl}`};
   min-height: 140px;
   display: flex;

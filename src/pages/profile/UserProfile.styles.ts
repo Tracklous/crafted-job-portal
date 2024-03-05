@@ -17,7 +17,7 @@ export const ProfilePictureContainer = styled.div`
   height: 100px;
   border-radius: 50%;
   background-color: ${({ theme }) =>
-        colord(theme.palette.primary).alpha(0.1).toRgbString()};
+    colord(theme.palette.primary).alpha(0.1).toRgbString()};
 `;
 
 export const ProfilePictureImage = styled.img`
@@ -28,12 +28,13 @@ export const ProfilePictureImage = styled.img`
 
 export const DefaultIcon = styled(IoPersonOutline)`
   color: ${({ theme }) =>
-        colord(theme.palette.primary).alpha(0.75).toRgbString()};
+    colord(theme.palette.primary).alpha(0.75).toRgbString()};
   width: 75px;
   height: 75px;
 `;
 
 export const UserDetailsText = styled.p`
+  color: ${({ theme }) => theme.palette.commonBlack};
   font-size: ${({ theme }) => theme.fontSize.lg};
   letter-spacing: 0.2ch;
 `;
