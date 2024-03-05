@@ -51,7 +51,7 @@ This application provides various features to enhance user experience, including
 
 ## Live Demo
 
-View the live demo of the application here 👉 [Job Portal](https://crafted-job-portal.vercel.app/login). *( 😕 Bug with vercel deployment. Theme is not loading correctly)*
+View the live demo of the application here 👉 [Job Portal](https://crafted-job-portal.vercel.app). *( 😕 Bug with vercel deployment. Theme is not loading correctly)*
 
 ### Demo Credentials:
 
